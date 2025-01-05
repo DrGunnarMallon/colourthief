@@ -1,0 +1,333 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf45fc385b878a44891de937056c801a, type: 3}
+  m_Name: ColorDatabase
+  m_EditorClassIdentifier: 
+  colors:
+  - colorName: Red
+    bwryb: 0000000000000000010000000000000000000000
+    colorRGB: {r: 1, g: 0, b: 0, a: 1}
+  - colorName: Yellow
+    bwryb: 0000000000000000000000000100000000000000
+    colorRGB: {r: 1, g: 1, b: 0, a: 1}
+  - colorName: Blue
+    bwryb: 0000000000000000000000000000000001000000
+    colorRGB: {r: 0, g: 0, b: 1, a: 1}
+  - colorName: White
+    bwryb: 0000000001000000000000000000000000000000
+    colorRGB: {r: 1, g: 1, b: 1, a: 1}
+  - colorName: Black
+    bwryb: 0100000000000000000000000000000000000000
+    colorRGB: {r: 0, g: 0, b: 0, a: 1}
+  - colorName: Orange
+    bwryb: 0000000000000000010000000100000000000000
+    colorRGB: {r: 1, g: 0.64705884, b: 0, a: 1}
+  - colorName: Green
+    bwryb: 0000000000000000000000000100000001000000
+    colorRGB: {r: 0, g: 0.5019608, b: 0, a: 1}
+  - colorName: Purple
+    bwryb: 0000000000000000010000000000000001000000
+    colorRGB: {r: 0.5019608, g: 0, b: 0.5019608, a: 1}
+  - colorName: Gray
+    bwryb: 0100000001000000000000000000000000000000
+    colorRGB: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  - colorName: Pink
+    bwryb: 0000000001000000010000000000000000000000
+    colorRGB: {r: 1, g: 0.7529412, b: 0.79607844, a: 1}
+  - colorName: Light Yellow
+    bwryb: 0000000001000000000000000100000000000000
+    colorRGB: {r: 1, g: 1, b: 0.8784314, a: 1}
+  - colorName: Light Blue
+    bwryb: 0000000001000000000000000000000001000000
+    colorRGB: {r: 0.6784314, g: 0.84705883, b: 0.9019608, a: 1}
+  - colorName: Dark Red
+    bwryb: 0100000000000000010000000000000000000000
+    colorRGB: {r: 0.54509807, g: 0, b: 0, a: 1}
+  - colorName: Olive
+    bwryb: 0100000000000000000000000100000000000000
+    colorRGB: {r: 0.5019608, g: 0.5019608, b: 0, a: 1}
+  - colorName: Navy
+    bwryb: 0100000000000000000000000000000001000000
+    colorRGB: {r: 0, g: 0, b: 0.5019608, a: 1}
+  - colorName: Brown
+    bwryb: 0000000000000000010000000100000001000000
+    colorRGB: {r: 0.64705884, g: 0.16470589, b: 0.16470589, a: 1}
+  - colorName: Peach
+    bwryb: 0000000001000000010000000100000000000000
+    colorRGB: {r: 1, g: 0.8980392, b: 0.7058824, a: 1}
+  - colorName: Brick Red
+    bwryb: 0100000000000000010000000100000000000000
+    colorRGB: {r: 0.69803923, g: 0.13333334, b: 0.13333334, a: 1}
+  - colorName: Dark Green
+    bwryb: 0100000000000000000000000100000001000000
+    colorRGB: {r: 0, g: 0.39215687, b: 0, a: 1}
+  - colorName: Dark Purple
+    bwryb: 0100000000000000010000000000000001000000
+    colorRGB: {r: 0.29411766, g: 0, b: 0.50980395, a: 1}
+  - colorName: Khaki
+    bwryb: 0100000001000000000000000100000000000000
+    colorRGB: {r: 0.9411765, g: 0.9019608, b: 0.54901963, a: 1}
+  - colorName: Slate
+    bwryb: 0100000001000000000000000000000001000000
+    colorRGB: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
+  - colorName: Dusty Red
+    bwryb: 0100000001000000010000000000000000000000
+    colorRGB: {r: 0.7254902, g: 0.28235295, b: 0.30588236, a: 1}
+  - colorName: Beige
+    bwryb: 0100000002000000010000000100000000000000
+    colorRGB: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
+  - colorName: Dusty Purple
+    bwryb: 0100000001000000010000000000000001000000
+    colorRGB: {r: 0.6, g: 0.4627451, b: 0.54509807, a: 1}
+  - colorName: Dusty Green
+    bwryb: 0100000001000000000000000100000001000000
+    colorRGB: {r: 0.60784316, g: 0.7294118, b: 0.6156863, a: 1}
+  - colorName: Pastel Brown
+    bwryb: 0000000001000000010000000100000001000000
+    colorRGB: {r: 0.72156864, g: 0.62352943, b: 0.5686275, a: 1}
+  - colorName: Dark Brown
+    bwryb: 0100000000000000010000000100000001000000
+    colorRGB: {r: 0.39607844, g: 0.2627451, b: 0.12941177, a: 1}
+  - colorName: Mud
+    bwryb: 0100000001000000010000000100000001000000
+    colorRGB: {r: 0.3764706, g: 0.27450982, b: 0.05882353, a: 1}
+  - colorName: Light Orange
+    bwryb: 0000000001000000010000000100000000000000
+    colorRGB: {r: 1, g: 0.8352941, b: 0.5019608, a: 1}
+  - colorName: Mint
+    bwryb: 0000000001000000000000000100000001000000
+    colorRGB: {r: 0.59607846, g: 1, b: 0.59607846, a: 1}
+  - colorName: Plum
+    bwryb: 0000000001000000010000000000000001000000
+    colorRGB: {r: 0.8666667, g: 0.627451, b: 0.8666667, a: 1}
+  - colorName: Coral
+    bwryb: 0000000001000000020000000100000000000000
+    colorRGB: {r: 1, g: 0.49803922, b: 0.3137255, a: 1}
+  - colorName: Light Pink
+    bwryb: 0000000002000000010000000000000000000000
+    colorRGB: {r: 1, g: 0.7137255, b: 0.75686276, a: 1}
+  - colorName: Rose
+    bwryb: 0000000001000000020000000000000000000000
+    colorRGB: {r: 0.9529412, g: 0.22745098, b: 0.41568628, a: 1}
+  - colorName: Maroon
+    bwryb: 0100000000000000020000000000000000000000
+    colorRGB: {r: 0.5019608, g: 0, b: 0, a: 1}
+  - colorName: Mustard
+    bwryb: 0100000000000000000000000200000000000000
+    colorRGB: {r: 1, g: 0.85882354, b: 0.34509805, a: 1}
+  - colorName: Teal
+    bwryb: 0000000000000000000000000100000002000000
+    colorRGB: {r: 0, g: 0.5019608, b: 0.5019608, a: 1}
+  - colorName: Pastel Orange
+    bwryb: 0000000001000000010000000200000000000000
+    colorRGB: {r: 1, g: 0.7019608, b: 0.2784314, a: 1}
+  - colorName: Gold
+    bwryb: 0000000000000000010000000200000000000000
+    colorRGB: {r: 1, g: 0.84313726, b: 0, a: 1}
+  - colorName: Lime
+    bwryb: 0000000000000000000000000200000001000000
+    colorRGB: {r: 0, g: 1, b: 0, a: 1}
+  - colorName: Aqua
+    bwryb: 0000000001000000000000000100000002000000
+    colorRGB: {r: 0, g: 1, b: 1, a: 1}
+  - colorName: Dusty Pink
+    bwryb: 0100000001000000010000000000000000000000
+    colorRGB: {r: 0.8627451, g: 0.627451, b: 0.73333335, a: 1}
+  - colorName: Dull Yellow
+    bwryb: 0100000001000000000000000100000000000000
+    colorRGB: {r: 0.93333334, g: 0.8627451, b: 0.50980395, a: 1}
+  - colorName: Slate Blue
+    bwryb: 0100000001000000000000000000000002000000
+    colorRGB: {r: 0.41568628, g: 0.3529412, b: 0.8039216, a: 1}
+  - colorName: Rust
+    bwryb: 0000000000000000020000000200000001000000
+    colorRGB: {r: 0.7176471, g: 0.25490198, b: 0.05490196, a: 1}
+  - colorName: Olive Drab
+    bwryb: 0000000000000000010000000200000002000000
+    colorRGB: {r: 0.41960785, g: 0.5568628, b: 0.13725491, a: 1}
+  - colorName: Chocolate
+    bwryb: 0100000000000000010000000100000001000000
+    colorRGB: {r: 0.8235294, g: 0.4117647, b: 0.11764706, a: 1}
+  - colorName: Taupe
+    bwryb: 0100000001000000010000000100000000000000
+    colorRGB: {r: 0.7372549, g: 0.59607846, b: 0.49411765, a: 1}
+  - colorName: Periwinkle
+    bwryb: 0000000001000000010000000000000002000000
+    colorRGB: {r: 0.8, g: 0.8, b: 1, a: 1}
+  - colorName: Charcoal
+    bwryb: 0200000001000000000000000000000000000000
+    colorRGB: {r: 0.21176471, g: 0.27058825, b: 0.30980393, a: 1}
+  - colorName: Silver
+    bwryb: 0100000002000000000000000000000000000000
+    colorRGB: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
+  - colorName: Ivory
+    bwryb: 0000000002000000000000000100000000000000
+    colorRGB: {r: 1, g: 1, b: 0.9411765, a: 1}
+  - colorName: Pistachio
+    bwryb: 0200000001000000000000000100000001000000
+    colorRGB: {r: 0.5764706, g: 0.77254903, b: 0.44705883, a: 1}
+  - colorName: Salmon
+    bwryb: 0000000002000000020000000100000000000000
+    colorRGB: {r: 0.98039216, g: 0.5019608, b: 0.44705883, a: 1}
+  - colorName: Mauve
+    bwryb: 0000000002000000020000000000000001000000
+    colorRGB: {r: 0.8784314, g: 0.6901961, b: 1, a: 1}
+  - colorName: Fuchsia
+    bwryb: 0000000001000000020000000000000001000000
+    colorRGB: {r: 1, g: 0, b: 1, a: 1}
+  - colorName: Hot Pink
+    bwryb: 0000000002000000020000000000000001000000
+    colorRGB: {r: 1, g: 0.4117647, b: 0.7058824, a: 1}
+  - colorName: Crimson
+    bwryb: 0100000000000000020000000100000000000000
+    colorRGB: {r: 0.8627451, g: 0.078431375, b: 0.23529412, a: 1}
+  - colorName: Carmine
+    bwryb: 0100000000000000030000000100000000000000
+    colorRGB: {r: 0.5882353, g: 0, b: 0.09411765, a: 1}
+  - colorName: Dark Salmon
+    bwryb: 0100000002000000030000000200000000000000
+    colorRGB: {r: 0.9137255, g: 0.5882353, b: 0.47843137, a: 1}
+  - colorName: Rose Gold
+    bwryb: 0000000001000000020000000200000000000000
+    colorRGB: {r: 0.7176471, g: 0.43137255, b: 0.4745098, a: 1}
+  - colorName: Light Lime
+    bwryb: 0000000001000000000000000200000001000000
+    colorRGB: {r: 0.8, g: 1, b: 0, a: 1}
+  - colorName: Spring Green
+    bwryb: 0000000001000000000000000300000003000000
+    colorRGB: {r: 0, g: 1, b: 0.49803922, a: 1}
+  - colorName: Aquamarine
+    bwryb: 0000000002000000000000000100000002000000
+    colorRGB: {r: 0.49803922, g: 1, b: 0.83137256, a: 1}
+  - colorName: Deep Teal
+    bwryb: 0100000000000000000000000100000002000000
+    colorRGB: {r: 0, g: 0.20784314, b: 0.19607843, a: 1}
+  - colorName: Slate Green
+    bwryb: 0100000001000000000000000100000002000000
+    colorRGB: {r: 0.30588236, g: 0.56078434, b: 0.4509804, a: 1}
+  - colorName: Grassy Green
+    bwryb: 0000000000000000000000000300000002000000
+    colorRGB: {r: 0.4862745, g: 0.9882353, b: 0, a: 1}
+  - colorName: Sea Green
+    bwryb: 0000000001000000000000000200000003000000
+    colorRGB: {r: 0.18039216, g: 0.54509807, b: 0.34117648, a: 1}
+  - colorName: Eggshell
+    bwryb: 0000000003000000000000000100000000000000
+    colorRGB: {r: 0.9411765, g: 0.91764706, b: 0.8392157, a: 1}
+  - colorName: Light Tan
+    bwryb: 0000000002000000010000000100000001000000
+    colorRGB: {r: 0.9843137, g: 0.9137255, b: 0.7058824, a: 1}
+  - colorName: Burnt Sienna
+    bwryb: 0000000000000000020000000100000001000000
+    colorRGB: {r: 0.9137255, g: 0.45490196, b: 0.31764707, a: 1}
+  - colorName: Copper
+    bwryb: 0000000000000000030000000300000002000000
+    colorRGB: {r: 0.72156864, g: 0.4509804, b: 0.2, a: 1}
+  - colorName: Bronze
+    bwryb: 0000000000000000040000000400000003000000
+    colorRGB: {r: 0.8039216, g: 0.49803922, b: 0.19607843, a: 1}
+  - colorName: Mahogany
+    bwryb: 0100000000000000020000000100000001000000
+    colorRGB: {r: 0.7529412, g: 0.2509804, b: 0, a: 1}
+  - colorName: Chocolate Brown
+    bwryb: 0100000000000000020000000200000002000000
+    colorRGB: {r: 0.24705882, g: 0, b: 0.05882353, a: 1}
+  - colorName: Coffee
+    bwryb: 0200000001000000020000000200000001000000
+    colorRGB: {r: 0.43529412, g: 0.30588236, b: 0.21568628, a: 1}
+  - colorName: Light Coffee
+    bwryb: 0200000002000000020000000200000001000000
+    colorRGB: {r: 0.6509804, g: 0.5019608, b: 0.39215687, a: 1}
+  - colorName: Sand
+    bwryb: 0100000002000000020000000200000001000000
+    colorRGB: {r: 0.7607843, g: 0.69803923, b: 0.5019608, a: 1}
+  - colorName: Dark Olive
+    bwryb: 0100000000000000010000000200000001000000
+    colorRGB: {r: 0.33333334, g: 0.41960785, b: 0.18431373, a: 1}
+  - colorName: Khaki Green
+    bwryb: 0100000001000000000000000200000001000000
+    colorRGB: {r: 0.5411765, g: 0.6039216, b: 0.35686275, a: 1}
+  - colorName: Cool Gray
+    bwryb: 0200000002000000000000000000000001000000
+    colorRGB: {r: 0.54901963, g: 0.57254905, b: 0.6745098, a: 1}
+  - colorName: Pumpkin
+    bwryb: 0100000000000000020000000200000000000000
+    colorRGB: {r: 1, g: 0.45882353, b: 0.09411765, a: 1}
+  - colorName: Amber
+    bwryb: 0000000000000000020000000300000000000000
+    colorRGB: {r: 1, g: 0.7490196, b: 0, a: 1}
+  - colorName: Sunset Orange
+    bwryb: 0100000001000000020000000100000000000000
+    colorRGB: {r: 0.99215686, g: 0.36862746, b: 0.3254902, a: 1}
+  - colorName: Honey
+    bwryb: 0100000000000000010000000300000000000000
+    colorRGB: {r: 1, g: 0.7647059, b: 0.043137256, a: 1}
+  - colorName: Lemon
+    bwryb: 0000000001000000000000000200000000000000
+    colorRGB: {r: 1, g: 0.96862745, b: 0, a: 1}
+  - colorName: Pine Green
+    bwryb: 0100000000000000000000000200000003000000
+    colorRGB: {r: 0.003921569, g: 0.4745098, b: 0.43529412, a: 1}
+  - colorName: Sky Blue
+    bwryb: 0000000002000000000000000100000003000000
+    colorRGB: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
+  - colorName: Royal Blue
+    bwryb: 0100000000000000000000000000000002000000
+    colorRGB: {r: 0.25490198, g: 0.4117647, b: 0.88235295, a: 1}
+  - colorName: Midnight Blue
+    bwryb: 0200000000000000000000000000000001000000
+    colorRGB: {r: 0.09803922, g: 0.09803922, b: 0.4392157, a: 1}
+  - colorName: Light Purple
+    bwryb: 0000000002000000010000000000000001000000
+    colorRGB: {r: 0.78431374, g: 0.63529414, b: 0.78431374, a: 1}
+  - colorName: Deep Purple
+    bwryb: 0100000000000000020000000000000002000000
+    colorRGB: {r: 0.1882353, g: 0.09803922, b: 0.20392157, a: 1}
+  - colorName: Neon Pink
+    bwryb: 0000000003000000030000000000000001000000
+    colorRGB: {r: 1, g: 0.43137255, b: 0.78039217, a: 1}
+  - colorName: Neon Purple
+    bwryb: 0000000001000000020000000000000002000000
+    colorRGB: {r: 0.7372549, g: 0.07450981, b: 0.99607843, a: 1}
+  - colorName: Soft Pink
+    bwryb: 0000000003000000010000000000000000000000
+    colorRGB: {r: 0.9490196, g: 0.7607843, b: 0.84313726, a: 1}
+  - colorName: Platinum
+    bwryb: 0100000003000000000000000000000000000000
+    colorRGB: {r: 0.8980392, g: 0.89411765, b: 0.8862745, a: 1}
+  - colorName: Dandelion
+    bwryb: 0000000000000000010000000300000000000000
+    colorRGB: {r: 0.99607843, g: 0.84705883, b: 0.3647059, a: 1}
+  - colorName: Light Rose
+    bwryb: 0000000002000000020000000000000000000000
+    colorRGB: {r: 0.9843137, g: 0.80784315, b: 0.8627451, a: 1}
+  - colorName: Dark Pink
+    bwryb: 0000000002000000030000000000000000000000
+    colorRGB: {r: 0.90588236, g: 0.32941177, b: 0.5019608, a: 1}
+  - colorName: Dark Coral
+    bwryb: 0100000001000000030000000200000000000000
+    colorRGB: {r: 0.8039216, g: 0.35686275, b: 0.27058825, a: 1}
+  - colorName: Cerise
+    bwryb: 0000000001000000030000000000000001000000
+    colorRGB: {r: 0.87058824, g: 0.19215687, b: 0.3882353, a: 1}
+  - colorName: Mulberry
+    bwryb: 0000000002000000030000000000000001000000
+    colorRGB: {r: 0.77254903, g: 0.29411766, b: 0.54901963, a: 1}
+  - colorName: Light Aqua
+    bwryb: 0000000002000000000000000100000002000000
+    colorRGB: {r: 0.54901963, g: 1, b: 0.98039216, a: 1}
+  - colorName: Cerulean
+    bwryb: 0000000001000000000000000100000003000000
+    colorRGB: {r: 0, g: 0.48235294, b: 0.654902, a: 1}
+  - colorName: Indigo
+    bwryb: 0100000000000000010000000000000002000000
+    colorRGB: {r: 0.29411766, g: 0, b: 0.50980395, a: 1}
