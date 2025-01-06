@@ -3,6 +3,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
+    public enum AudioType { DrainPaint, FillPaint, Sonar, Tractor, Release }
 
     private AudioSource musicSource;
     [SerializeField] private AudioClip drainPaintClip = null;
@@ -31,59 +32,42 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
         musicSource = GetComponent<AudioSource>();
     }
 
-    public void PlayDrainPaintClip()
+    public void PlaySound(AudioType audioType)
     {
-        if (drainPaintClip != null)
-        {
-            musicSource.clip = drainPaintClip;
-            musicSource.volume = drainPaintVolume;
-            musicSource.Play();
-        }
-    }
+        AudioClip clip = null;
+        float volume = 0.5f;
 
-    public void PlayFillPaintClip()
-    {
-        if (fillPaintClip != null)
+        switch (audioType)
         {
-            musicSource.clip = fillPaintClip;
-            musicSource.volume = fillPaintVolume;
-            musicSource.Play();
+            case AudioType.DrainPaint:
+                clip = drainPaintClip;
+                volume = drainPaintVolume;
+                break;
+            case AudioType.FillPaint:
+                clip = fillPaintClip;
+                volume = fillPaintVolume;
+                break;
+            case AudioType.Sonar:
+                clip = sonarClip;
+                volume = sonarVolume;
+                break;
+            case AudioType.Tractor:
+                clip = tractorClip;
+                volume = tractorVolume;
+                break;
+            case AudioType.Release:
+                clip = releaseClip;
+                volume = releaseVolume;
+                break;
         }
-    }
 
-    public void PlaySonarClip()
-    {
-        if (sonarClip != null)
+        if (clip != null)
         {
-            musicSource.clip = sonarClip;
-            musicSource.volume = sonarVolume;
-            musicSource.Play();
-        }
-    }
-
-    public void PlayTractorClip()
-    {
-        if (tractorClip != null)
-        {
-            musicSource.clip = tractorClip;
-            musicSource.volume = tractorVolume;
-            musicSource.Play();
-        }
-    }
-
-    public void PlayReleaseClip()
-    {
-        if (releaseClip != null)
-        {
-            musicSource.clip = releaseClip;
-            musicSource.volume = releaseVolume;
+            musicSource.clip = clip;
+            musicSource.volume = volume;
             musicSource.Play();
         }
     }

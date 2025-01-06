@@ -5,7 +5,6 @@ public class BootstrapManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameManagerPrefab;
     [SerializeField] private GameObject audioManagerPrefab;
-    [SerializeField] private GameObject sceneSwitchManager;
 
     private GameObject bootstrapCamera;
 
@@ -21,11 +20,6 @@ public class BootstrapManager : MonoBehaviour
         if (FindFirstObjectByType<AudioManager>() == null)
         {
             Instantiate(audioManagerPrefab);
-        }
-
-        if (FindFirstObjectByType<SceneSwitchManager>() == null)
-        {
-            Instantiate(sceneSwitchManager);
         }
 
         bootstrapCamera = GameObject.FindGameObjectWithTag("BootstrapCamera");

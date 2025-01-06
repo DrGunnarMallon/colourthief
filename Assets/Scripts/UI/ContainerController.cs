@@ -4,6 +4,7 @@ using TMPro;
 public class ContainerController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI colorNameText;
+    [SerializeField] private ColorManager colorManager;
 
     private ColorData currentColor = null;
     private int[] bwryb = new int[5];
@@ -19,10 +20,10 @@ public class ContainerController : MonoBehaviour
             bwryb[i] += bwrybValue[i];
         }
 
-        ColorData returnColor = ColorManager.Instance.GetColorExact(bwryb);
+        ColorData returnColor = colorManager.GetColorExact(bwryb);
         if (returnColor == null)
         {
-            returnColor = ColorManager.Instance.GetColorNearest(bwryb);
+            returnColor = colorManager.GetColorNearest(bwryb);
         }
 
         if (returnColor.colorName == UIManager.Instance.GetTargetColor().colorName)
@@ -43,7 +44,7 @@ public class ContainerController : MonoBehaviour
 
     private void ClearPanel()
     {
-        UIManager.Instance.UpdatePanelColor(ColorManager.Instance.GetColorByName("Gray"));
+        UIManager.Instance.UpdatePanelColor(colorManager.GetColorByName("Gray"));
         UIManager.Instance.UpdatePanelText("None");
     }
 

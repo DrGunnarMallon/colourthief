@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; private set; }
 
+    [SerializeField] ColorManager colorManager;
+
     private bool hasColor = false;
     private ColorData currentColor;
     private SpriteRenderer spriteRenderer;
@@ -83,7 +85,7 @@ public class PlayerController : MonoBehaviour
     {
         hasColor = false;
         ColorData tempColor = currentColor;
-        currentColor = ColorManager.Instance.GetColorByName("White");
+        currentColor = colorManager.GetColorByName("White");
         spriteRenderer.color = currentColor.colorRGB;
         return tempColor;
     }
@@ -113,7 +115,7 @@ public class PlayerController : MonoBehaviour
             trackedBubble.Release();
             trackedBubble = null;
             TractorBeam.Instance.Deactivate();
-            AudioManager.Instance.PlayReleaseClip();
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.Release);
         }
     }
 

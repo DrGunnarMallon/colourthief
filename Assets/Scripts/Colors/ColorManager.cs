@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class ColorManager : MonoBehaviour
 {
-    public static ColorManager Instance { get; private set; }
+    // public static ColorManager Instance { get; private set; }
+
     public ColorDatabase colorDatabase;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    // private void Awake()
+    // {
+    //     if (Instance == null)
+    //     {
+    //         Instance = this;
+    //     }
+    //     else
+    //     {
+    //         Destroy(gameObject);
+    //     }
+    // }
 
 
     #region Private methods

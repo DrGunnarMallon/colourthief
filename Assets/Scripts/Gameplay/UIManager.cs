@@ -18,13 +18,14 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI scoreText;
 
+    [SerializeField] private ColorManager colorManager;
+
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -51,7 +52,7 @@ public class UIManager : MonoBehaviour
 
     public void ClearCurrentColor()
     {
-        UpdatePanelColor(ColorManager.Instance.GetColorByName("Gray"));
+        UpdatePanelColor(colorManager.GetColorByName("Gray"));
         UpdatePanelText("None");
     }
 

@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     [Header("Color Data")]
     [SerializeField] private ColorDatabase colorDataList;
-    // [SerializeField] private ColorManager colorManager;
+    [SerializeField] private ColorManager colorManager;
 
     [Header("Bubble Settings")]
     [SerializeField] private GameObject bubblePrefab;
@@ -21,21 +21,6 @@ public class LevelManager : MonoBehaviour
     private List<Vector3> exisitingPositions = new List<Vector3>();
     private float bubbleRadius = 0.5f;
     private int extraBubbles = 5;
-
-    // public static LevelManager Instance { get; private set; }
-
-    // private void Awake()
-    // {
-    //     if (Instance == null)
-    //     {
-    //         Instance = this;
-    //         DontDestroyOnLoad(gameObject);
-    //     }
-    //     else
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
 
     private void Start()
     {
@@ -55,27 +40,27 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < selectedColorData.bwryb[0]; i++)
         {
-            bubbleColors.Add(ColorManager.Instance.GetColorByName("Black"));
+            bubbleColors.Add(colorManager.GetColorByName("Black"));
         }
 
         for (int i = 0; i < selectedColorData.bwryb[1]; i++)
         {
-            bubbleColors.Add(ColorManager.Instance.GetColorByName("White"));
+            bubbleColors.Add(colorManager.GetColorByName("White"));
         }
 
         for (int i = 0; i < selectedColorData.bwryb[2]; i++)
         {
-            bubbleColors.Add(ColorManager.Instance.GetColorByName("Red"));
+            bubbleColors.Add(colorManager.GetColorByName("Red"));
         }
 
         for (int i = 0; i < selectedColorData.bwryb[3]; i++)
         {
-            bubbleColors.Add(ColorManager.Instance.GetColorByName("Yellow"));
+            bubbleColors.Add(colorManager.GetColorByName("Yellow"));
         }
 
         for (int i = 0; i < selectedColorData.bwryb[4]; i++)
         {
-            bubbleColors.Add(ColorManager.Instance.GetColorByName("Blue"));
+            bubbleColors.Add(colorManager.GetColorByName("Blue"));
         }
 
         for (int i = 0; i < extraBubbles; i++)

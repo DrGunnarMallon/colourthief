@@ -203,7 +203,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.7
+  m_fontSize: 40.65
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1234,8 +1234,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 801146536637321224, guid: f588f835edb09904f9a8a7165c4a8236, type: 3}
-        m_TargetAssemblyTypeName: SceneSwitchManager, Assembly-CSharp
+      - m_Target: {fileID: 491459287397872952, guid: 2bc35d974affe9b45a3ea3d8995fe95f, type: 3}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: SwitchScene
         m_Mode: 5
         m_Arguments:

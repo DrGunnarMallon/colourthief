@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private UIManager uiManager;
-    [SerializeField] private ColorManager colorManager;
 
     private int score = 0;
 
@@ -26,28 +25,11 @@ public class GameManager : MonoBehaviour
 
     #region Game Management Methods
 
-    public void LoadGame()
-    {
-        ResetScore();
-        SceneManager.LoadScene("GameScene");
-    }
-
-    public void GoToMainMenu()
-    {
-        // Reset UIManager
-        // Reset PlayerController
-        // Reset BubbleController
-        // Reset LevelManager
-        // Load MainMenu Scene
-        levelManager.ResetLevel();
-        SceneManager.LoadScene("MainMenu");
-    }
-
     public void RestartGame()
     {
         ResetScore();
         levelManager.NewLevel();
-        UIManager.Instance.HideLevelCompleteText();
+        uiManager.HideLevelCompleteText();
     }
 
     public void LevelComplete()
@@ -58,12 +40,54 @@ public class GameManager : MonoBehaviour
     #endregion
 
     // LoadGame
+    public void LoadGame()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
 
-    // NextLevel
+    public void LoadNextLevel()
+    {
+        score++;
+        // Reset PlayerController
+        // Reset ContainerController
+        // Reset UIManager
+
+        // LevelManager Next Level (Color)
+    }
 
     // NewLevel
+    public void ReloadLevel()
+    {
+        // Reset UIManager
+        // Reset PlayerController
+        // Reset BubbleController
+        // Reset ContainerController
+        // Reset LevelManager
+        score = 0;
+        // Level Manager Generate New Level
+    }
 
     // MainMenu
+    public void LoadMainMenu()
+    {
+        // Reset UIManager
+
+        // Reset PlayerController
+
+        // Reset BubbleController
+
+        // Reset ContainerController
+
+        // Reset LevelManager
+        levelManager.ResetLevel();
+        // Load MainMenu Scene
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void SwitchScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 
     #region Scoring Methods
 

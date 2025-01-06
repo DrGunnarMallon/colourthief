@@ -30,7 +30,7 @@ public class BeaconController : MonoBehaviour
         Vector3 initialScale = Vector3.zero;
         Vector3 targetScale = Vector3.one * (maxRadius - 0.1f);
 
-        AudioManager.Instance.PlaySonarClip();
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.Sonar);
 
         transform.localScale = initialScale;
 

@@ -99,7 +99,7 @@ public class BubbleController : MonoBehaviour
             return false;
         }
 
-        AudioManager.Instance.PlayTractorClip();
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.Tractor);
 
         isTractored = true;
 
@@ -174,7 +174,7 @@ public class BubbleController : MonoBehaviour
             Destroy(destroyParticleSystem.gameObject, destroyParticleSystem.main.duration);
         }
 
-        AudioManager.Instance.PlayDrainPaintClip();
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.DrainPaint);
 
         yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
