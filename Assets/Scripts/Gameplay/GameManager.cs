@@ -5,10 +5,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    [Header("Managers")]
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private ScoreManager scoreManager;
 
-    private int score = 0;
+    #region Startup
 
     private void Awake()
     {
@@ -23,11 +25,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #endregion
+
     #region Game Management Methods
 
     public void RestartGame()
     {
-        ResetScore();
         levelManager.NewLevel();
         uiManager.HideLevelCompleteText();
     }
@@ -37,7 +40,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(levelManager.LevelComplete());
     }
 
-    #endregion
 
     // LoadGame
     public void LoadGame()
@@ -47,11 +49,9 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        score++;
         // Reset PlayerController
         // Reset ContainerController
         // Reset UIManager
-
         // LevelManager Next Level (Color)
     }
 
@@ -63,7 +63,6 @@ public class GameManager : MonoBehaviour
         // Reset BubbleController
         // Reset ContainerController
         // Reset LevelManager
-        score = 0;
         // Level Manager Generate New Level
     }
 
@@ -84,24 +83,14 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    #endregion
+
+    #region Scene Management
+
     public void SwitchScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
-
-    #region Scoring Methods
-
-    public void ResetScore()
-    {
-        score = 0;
-    }
-
-    public void IncreaseScore()
-    {
-        score++;
-    }
-
-    public int GetScore() => score;
 
     #endregion
 }
