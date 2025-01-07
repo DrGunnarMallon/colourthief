@@ -9795,9 +9795,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 330457559}
-  bubbleLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
   transferCooldown: 3
 --- !u!1001 &3701832932251226829
 PrefabInstance:
@@ -9955,6 +9952,7 @@ GameObject:
   - component: {fileID: 8091442489581295125}
   - component: {fileID: 364945851952948496}
   - component: {fileID: 3321440415018563012}
+  - component: {fileID: 8964032320789640675}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -10124,6 +10122,21 @@ Transform:
   - {fileID: 866310599}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8964032320789640675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6358223062750829658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f8cf63664f99542a667313eb0d180b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubbleLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

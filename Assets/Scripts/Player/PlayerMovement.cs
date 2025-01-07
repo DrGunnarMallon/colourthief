@@ -44,5 +44,7 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = forwardDir * vertical * moveSpeed;
     }
 
+    public Vector3 GetVelocity() => rb.linearVelocity;
+
     #endregion
 }

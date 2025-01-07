@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1310320216438687561}
   - component: {fileID: 2711917008481789137}
   - component: {fileID: 8479006168161621980}
-  - component: {fileID: 2152135491354167189}
   - component: {fileID: 67944788544464089}
   - component: {fileID: 3168791724964115469}
+  - component: {fileID: 254096231909268328}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -197,19 +197,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2152135491354167189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6763594158991334803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfe21e68551b8f0418033836d5dcac67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transferCooldown: 1
 --- !u!114 &67944788544464089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +221,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a40c2c66fce1d854193dbcaf19034205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}
+  transferCooldown: 3
+--- !u!114 &254096231909268328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6763594158991334803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f8cf63664f99542a667313eb0d180b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bubbleLayerMask:
