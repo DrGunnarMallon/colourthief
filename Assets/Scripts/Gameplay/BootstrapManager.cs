@@ -5,6 +5,7 @@ public class BootstrapManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameManagerPrefab;
     [SerializeField] private GameObject audioManagerPrefab;
+    [SerializeField] private GameObject eventsManagerPrefab;
 
     private GameObject bootstrapCamera;
 
@@ -22,10 +23,15 @@ public class BootstrapManager : MonoBehaviour
             Instantiate(audioManagerPrefab);
         }
 
+        if (FindFirstObjectByType<EventsManager>() == null)
+        {
+            Instantiate(eventsManagerPrefab);
+        }
+
         bootstrapCamera = GameObject.FindGameObjectWithTag("BootstrapCamera");
     }
 
-    void Start()
+    private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);

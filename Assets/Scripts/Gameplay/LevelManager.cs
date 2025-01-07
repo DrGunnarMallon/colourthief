@@ -14,21 +14,34 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int spawnAreaHeight = 10;
     [SerializeField] private Vector2 spawnAreaCenter = Vector2.zero;
 
-    [Header("Level Settings")]
-    [SerializeField] private Transform spawnPoint;
-
     private List<GameObject> spawnedBubbles = new List<GameObject>();
     private List<Vector3> exisitingPositions = new List<Vector3>();
     private float bubbleRadius = 0.5f;
-    private int extraBubbles = 5;
+    private int totalBubbles = 10;
 
-    private void Start()
+
+    #region Events
+
+    private void OnEnable()
     {
-        GenerateLevel();
+        EventsManager.Instance.OnResetGame += ClearLevel;
+        EventsManager.Instance.OnNewLevel += GenerateLevel;
     }
+
+    private void OnDisable()
+    {
+        EventsManager.Instance.OnResetGame -= ClearLevel;
+        EventsManager.Instance.OnNewLevel -= GenerateLevel;
+    }
+
+    #endregion
+
+    #region Level Generation
 
     public void GenerateLevel()
     {
+        Debug.Log("LEVELMANAGER: GenerateLevel called");
+
         ClearLevel();
 
         if (colorDataList == null || colorDataList.colors.Length == 0) return;
@@ -38,38 +51,16 @@ public class LevelManager : MonoBehaviour
 
         List<ColorData> bubbleColors = new List<ColorData>();
 
-        for (int i = 0; i < selectedColorData.bwryb[0]; i++)
-        {
-            bubbleColors.Add(colorManager.GetColorByName("Black"));
-        }
+        bubbleColors.AddRange(makeBubbles("Black", selectedColorData.bwryb[0]));
+        bubbleColors.AddRange(makeBubbles("White", selectedColorData.bwryb[1]));
+        bubbleColors.AddRange(makeBubbles("Red", selectedColorData.bwryb[2]));
+        bubbleColors.AddRange(makeBubbles("Yellow", selectedColorData.bwryb[3]));
+        bubbleColors.AddRange(makeBubbles("Blue", selectedColorData.bwryb[4]));
 
-        for (int i = 0; i < selectedColorData.bwryb[1]; i++)
+        for (int i = bubbleColors.Count; i < totalBubbles; i++)
         {
-            bubbleColors.Add(colorManager.GetColorByName("White"));
+            bubbleColors.Add(colorDataList.colors[Random.Range(0, 4)]);
         }
-
-        for (int i = 0; i < selectedColorData.bwryb[2]; i++)
-        {
-            bubbleColors.Add(colorManager.GetColorByName("Red"));
-        }
-
-        for (int i = 0; i < selectedColorData.bwryb[3]; i++)
-        {
-            bubbleColors.Add(colorManager.GetColorByName("Yellow"));
-        }
-
-        for (int i = 0; i < selectedColorData.bwryb[4]; i++)
-        {
-            bubbleColors.Add(colorManager.GetColorByName("Blue"));
-        }
-
-        for (int i = 0; i < extraBubbles; i++)
-        {
-            int randomColorIndex = Random.Range(0, 4);
-            ColorData randomColor = colorDataList.colors[randomColorIndex];
-            bubbleColors.Add(randomColor);
-        }
-
 
         foreach (var bubbleInfo in bubbleColors)
         {
@@ -78,18 +69,20 @@ public class LevelManager : MonoBehaviour
             spawnedBubbles.Add(newBubble);
 
             BubbleController bubbleController = newBubble.GetComponent<BubbleController>();
-            if (bubbleController != null)
-            {
-                bubbleController.SetBubbleColor(bubbleInfo);
-            }
-            else
-            {
-                Debug.LogError("Bubble Controller is not found in the Bubble Prefab");
-            }
+            bubbleController.SetBubbleColor(bubbleInfo);
         }
 
-        UIManager.Instance.UpdateTargetColor(selectedColorData);
-        UIManager.Instance.ClearCurrentColor();
+        EventsManager.Instance.TriggerTargetColorChanged(selectedColorData);
+    }
+
+    private List<ColorData> makeBubbles(string color, int count)
+    {
+        List<ColorData> bubbles = new List<ColorData>();
+        for (int i = 0; i < count; i++)
+        {
+            bubbles.Add(colorManager.GetColorByName(color));
+        }
+        return bubbles;
     }
 
     private Vector3 GetRandomPosition()
@@ -123,6 +116,8 @@ public class LevelManager : MonoBehaviour
         return new Vector3(fallbackX, fallbackY, 0);
     }
 
+    #endregion
+
     private void ClearLevel()
     {
         foreach (GameObject bubble in spawnedBubbles)
@@ -137,38 +132,15 @@ public class LevelManager : MonoBehaviour
         exisitingPositions.Clear();
     }
 
-    public void ResetLevel()
-    {
-        GameManager.Instance.ResetScore();
-        UIManager.Instance.UpdateScore(GameManager.Instance.GetScore());
-        PlayerController.Instance.Stop();
-        PlayerController.Instance.ResetPlayer(spawnPoint);
-        ClearLevel();
-        UIManager.Instance.ResetUI();
-    }
 
     public IEnumerator LevelComplete()
     {
-        GameManager.Instance.IncreaseScore();
-        UIManager.Instance.UpdateScore(GameManager.Instance.GetScore());
+        EventsManager.Instance.TriggerIncreaseScore(1);
         UIManager.Instance.ShowLevelCompleteText();
         yield return new WaitForSeconds(2f);
         UIManager.Instance.HideLevelCompleteText();
-        PlayerController.Instance.Stop();
-        PlayerController.Instance.ResetPlayer(spawnPoint);
         ClearLevel();
-        UIManager.Instance.ResetUI();
         GenerateLevel();
     }
 
-    public void NewLevel()
-    {
-        GameManager.Instance.ResetScore();
-        UIManager.Instance.UpdateScore(GameManager.Instance.GetScore());
-        PlayerController.Instance.Stop();
-        PlayerController.Instance.ResetPlayer(spawnPoint);
-        ClearLevel();
-        UIManager.Instance.ResetUI();
-        GenerateLevel();
-    }
 }

@@ -6,20 +6,21 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    [SerializeField] private Image currentColorPanel;
-    [SerializeField] private TextMeshProUGUI currentColorText;
+    [Header("Level Complete Text")]
     [SerializeField] private TextMeshPro levelCompleteText;
 
-    [SerializeField] private Image targetColorPanel;
-    [SerializeField] private TextMeshProUGUI targetColorText;
-
-    [SerializeField] private ContainerController containerController;
+    [Header("Panel Controllers")]
+    [SerializeField] private ContainerController mixingController;
     [SerializeField] private TargetController targetController;
+    [SerializeField] private StreakTextController streakController;
 
+    [Header("Score Text")]
     [SerializeField] private TextMeshProUGUI scoreText;
 
+    [Header("Color Manager")]
     [SerializeField] private ColorManager colorManager;
 
+    #region Class Setup Methods
 
     private void Awake()
     {
@@ -38,7 +39,51 @@ public class UIManager : MonoBehaviour
         levelCompleteText.gameObject.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        EventsManager.Instance.OnScoreChanged += UpdateScoreText;
+        EventsManager.Instance.OnTargetColorChanged += UpdateTargetColor;
+        EventsManager.Instance.OnMixingColorChanged += UpdateMixingContainerColor;
+        EventsManager.Instance.OnLevelCompleted += LevelCompleted;
+
+        EventsManager.Instance.OnResetGame += ResetAll;
+    }
+
+    private void OnDisable()
+    {
+        EventsManager.Instance.OnScoreChanged -= UpdateScoreText;
+        EventsManager.Instance.OnTargetColorChanged -= UpdateTargetColor;
+        EventsManager.Instance.OnMixingColorChanged -= UpdateMixingContainerColor;
+        EventsManager.Instance.OnLevelCompleted -= LevelCompleted;
+
+        EventsManager.Instance.OnResetGame -= ResetAll;
+    }
+
+    #endregion
+
     #region Public Methods
+
+    public void ResetAll()
+    {
+        ResetTarget();
+        ResetMixingContainer();
+        HideLevelCompleteText();
+    }
+
+    public void UpdateScoreText(int score)
+    {
+        streakController.UpdateStreakText(score);
+    }
+
+    public void UpdateTargetColor(ColorData color)
+    {
+        targetController.SetTargetColor(color);
+    }
+
+    public void UpdateMixingContainerColor(ColorData data)
+    {
+        mixingController.AddMixingColor(data);
+    }
 
     public void ShowLevelCompleteText()
     {
@@ -50,50 +95,22 @@ public class UIManager : MonoBehaviour
         levelCompleteText.gameObject.SetActive(false);
     }
 
-    public void ClearCurrentColor()
+    public void ResetTarget()
     {
-        UpdatePanelColor(colorManager.GetColorByName("Gray"));
-        UpdatePanelText("None");
+        targetController.ResetTarget();
     }
 
-    public void UpdatePanelColor(ColorData newColor)
+    public void ResetMixingContainer()
     {
-        if (currentColorPanel == null) return;
-
-        currentColorPanel.color = newColor.colorRGB;
+        mixingController.ResetContainer();
     }
 
-    public void UpdatePanelText(string text)
-    {
-        currentColorText.text = text;
-    }
 
-    public void UpdateTargetColor(ColorData newColor)
+    private void LevelCompleted()
     {
-        targetColorPanel.color = newColor.colorRGB;
-        targetColorText.text = newColor.colorName;
-        targetController.SetTargetColor(newColor);
-    }
-
-    public ColorData GetTargetColor()
-    {
-        return targetController.GetTargetColor();
-    }
-
-    public void ResetContainer()
-    {
-        containerController.ResetContainer();
-        ClearCurrentColor();
-    }
-
-    public void ResetUI()
-    {
-        ResetContainer();
-    }
-
-    public void UpdateScore(int score)
-    {
-        scoreText.text = "Streak: " + score.ToString();
+        ResetTarget();
+        ResetMixingContainer();
+        HideLevelCompleteText();
     }
 
     #endregion

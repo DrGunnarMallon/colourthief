@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,12 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [Header("Managers")]
-    [SerializeField] private LevelManager levelManager;
-    [SerializeField] private UIManager uiManager;
-    [SerializeField] private ScoreManager scoreManager;
-
-    #region Startup
+    #region Singleton Pattern
 
     private void Awake()
     {
@@ -29,58 +25,31 @@ public class GameManager : MonoBehaviour
 
     #region Game Management Methods
 
-    public void RestartGame()
+    public void ResetGame()
     {
-        levelManager.NewLevel();
-        uiManager.HideLevelCompleteText();
+        EventsManager.Instance.TriggerResetGame();
+        EventsManager.Instance.TriggerNewLevel();
     }
 
     public void LevelComplete()
     {
-        StartCoroutine(levelManager.LevelComplete());
+        EventsManager.Instance.TriggerLevelCompleted();
     }
 
-
-    // LoadGame
     public void LoadGame()
     {
-        SceneManager.LoadScene("GameScene");
+        StartCoroutine(LoadGameSceneAsync());
     }
 
     public void LoadNextLevel()
     {
-        // Reset PlayerController
-        // Reset ContainerController
-        // Reset UIManager
-        // LevelManager Next Level (Color)
+        EventsManager.Instance.TriggerNextLevel();
     }
 
-    // NewLevel
-    public void ReloadLevel()
-    {
-        // Reset UIManager
-        // Reset PlayerController
-        // Reset BubbleController
-        // Reset ContainerController
-        // Reset LevelManager
-        // Level Manager Generate New Level
-    }
-
-    // MainMenu
     public void LoadMainMenu()
     {
-        // Reset UIManager
-
-        // Reset PlayerController
-
-        // Reset BubbleController
-
-        // Reset ContainerController
-
-        // Reset LevelManager
-        levelManager.ResetLevel();
-        // Load MainMenu Scene
-        SceneManager.LoadScene("MainMenu");
+        EventsManager.Instance.TriggerReturnToMenu();
+        SwitchScene("MainMenu");
     }
 
     #endregion
@@ -89,7 +58,29 @@ public class GameManager : MonoBehaviour
 
     public void SwitchScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(SwitchSceneAsync(sceneName));
+    }
+
+    private IEnumerator SwitchSceneAsync(string sceneName)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private IEnumerator LoadGameSceneAsync()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        ResetGame();
     }
 
     #endregion

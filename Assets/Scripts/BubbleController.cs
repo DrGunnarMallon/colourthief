@@ -31,6 +31,8 @@ public class BubbleController : MonoBehaviour
     private Collider2D bubbleCollider;
     private PlayerInput playerInput;
 
+    private PlayerController playerController;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -38,6 +40,7 @@ public class BubbleController : MonoBehaviour
         destroyParticleSystem = GetComponentInChildren<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         bubbleCollider = GetComponent<Collider2D>();
+        playerController = FindFirstObjectByType<PlayerController>();
     }
 
     private void Start()
@@ -89,7 +92,7 @@ public class BubbleController : MonoBehaviour
         if (!hasColor || isTractored || isAttachedToPlayer) return false;
 
         float distanceToPlayer = Vector2.Distance(
-            PlayerController.Instance.transform.position,
+            playerController.transform.position,
             transform.position
         );
 
@@ -107,33 +110,33 @@ public class BubbleController : MonoBehaviour
         rb.angularVelocity = 0f;
         rb.bodyType = RigidbodyType2D.Kinematic;
 
-        Collider2D playerCollider = PlayerController.Instance.GetComponent<Collider2D>();
+        Collider2D playerCollider = playerController.GetComponent<Collider2D>();
         if (playerCollider)
         {
             Physics2D.IgnoreCollision(bubbleCollider, playerCollider, true);
         }
 
-        tractorTarget = PlayerController.Instance.transform;
-        TractorBeam.Instance.SetSourceObject(PlayerController.Instance.transform);
+        tractorTarget = playerController.transform;
+        TractorBeam.Instance.SetSourceObject(playerController.transform);
         TractorBeam.Instance.SetTargetObject(transform);
         TractorBeam.Instance.Activate();
 
-        PlayerController.Instance.SetTrackedBubble(this);
+        // playerController.SetTrackedBubble(this);
 
         return true;
     }
 
     private void ShowAttractionLimitBeacon(float maxRange)
     {
-        if (attractionBeaconPrefab != null && PlayerController.Instance != null)
+        if (attractionBeaconPrefab != null && playerController != null)
         {
-            GameObject beacon = Instantiate(attractionBeaconPrefab, PlayerController.Instance.transform.position, Quaternion.identity);
+            GameObject beacon = Instantiate(attractionBeaconPrefab, playerController.transform.position, Quaternion.identity);
 
             BeaconController beaconController = beacon.GetComponent<BeaconController>();
 
             if (beaconController != null)
             {
-                beaconController.ActivateBeacon(PlayerController.Instance.transform.position, maxRange);
+                beaconController.ActivateBeacon(playerController.transform.position, maxRange);
             }
         }
     }
@@ -156,7 +159,7 @@ public class BubbleController : MonoBehaviour
             ContainerController container = other.GetComponent<ContainerController>();
             if (container != null)
             {
-                container.ReceiveColor(currentColor);
+                // container.ReceiveColor(currentColor);
                 StartCoroutine(PlayDestroyAnimation());
             }
         }
@@ -203,7 +206,7 @@ public class BubbleController : MonoBehaviour
 
         transform.rotation = Quaternion.identity;
 
-        Collider2D playerCollider = PlayerController.Instance.GetComponent<Collider2D>();
+        Collider2D playerCollider = playerController.GetComponent<Collider2D>();
         if (playerCollider)
         {
             Physics2D.IgnoreCollision(bubbleCollider, playerCollider, false);

@@ -1,133 +1,117 @@
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController Instance { get; private set; }
-
-    [SerializeField] ColorManager colorManager;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private LayerMask bubbleLayerMask;
 
     private bool hasColor = false;
     private ColorData currentColor;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
 
-    private ColorData emptyColor;
+    private ColorManager colorManager;
 
-    private BubbleController trackedBubble = null;
+    [Header("Transfer Cooldown")]
+    [SerializeField] private float transferCooldown = 3f;
+    private float lastTransferTime = -999f;
 
-    [SerializeField] private LayerMask bubbleLayerMask;
+
+    #region Class Setup Methods
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        colorManager = FindFirstObjectByType<ColorManager>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        EventsManager.Instance.OnLevelCompleted += ResetPlayer;
+        EventsManager.Instance.OnResetGame += ResetPlayer;
+    }
+
+    private void OnDisable()
+    {
+        EventsManager.Instance.OnLevelCompleted -= ResetPlayer;
+        EventsManager.Instance.OnResetGame -= ResetPlayer;
     }
 
     private void Update()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
             Collider2D hitCollider = Physics2D.OverlapPoint(mousePos, bubbleLayerMask);
 
-            if (hitCollider == null)
-            {
-                ReleaseBubble();
-            }
-            else
-            {
+            if (hitCollider == null) return;
 
-                BubbleController bubble = hitCollider.GetComponent<BubbleController>();
-                if (bubble == null)
-                {
-                    ReleaseBubble();
-                }
-                else
-                {
-                    bool success = bubble.TryTractor();
-                    if (!success)
-                    {
-                        ReleaseBubble();
-                    }
-                }
-            }
+            BubbleController bubble = hitCollider.GetComponent<BubbleController>();
+
+            if (bubble == null) return;
+
+            bool success = bubble.TryTractor();
         }
     }
 
+    #endregion
+
     #region Public Methods
 
-    public void BorrowColor(ColorData color)
+    public bool HasColor() => hasColor;
+    public Vector3 GetVelocity() => rb.linearVelocity;
+    public ColorData GetColor() => currentColor;
+
+    public void ResetPlayer()
     {
-        if (color == null) return;
+        hasColor = false;
+        currentColor = null;
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        transform.rotation = Quaternion.identity;
+        transform.position = spawnPoint.position;
+    }
+
+    public void SetColor(ColorData color)
+    {
+        if (color == null || hasColor) return;
+
         hasColor = true;
         currentColor = color;
         spriteRenderer.color = color.colorRGB;
     }
 
-    public ColorData DepositColor()
-    {
-        hasColor = false;
-        ColorData tempColor = currentColor;
-        currentColor = colorManager.GetColorByName("White");
-        spriteRenderer.color = currentColor.colorRGB;
-        return tempColor;
-    }
-
-    public bool HasColor() => hasColor;
-
-    public void Stop()
-    {
-        rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-    }
-
-    public void SetTrackedBubble(BubbleController bubble)
-    {
-        if (trackedBubble != null && trackedBubble != bubble)
-        {
-            trackedBubble.Release();
-        }
-
-        trackedBubble = bubble;
-    }
-
-    public void ReleaseBubble()
-    {
-        if (trackedBubble != null)
-        {
-            trackedBubble.Release();
-            trackedBubble = null;
-            TractorBeam.Instance.Deactivate();
-            AudioManager.Instance.PlaySound(AudioManager.AudioType.Release);
-        }
-    }
-
-    public Vector3 GetVelocity() => rb.linearVelocity;
-
-    public void ResetPlayer(Transform spawnPoint)
+    public void ClearColor()
     {
         hasColor = false;
         currentColor = null;
-        trackedBubble = null;
-        transform.rotation = Quaternion.identity;
-        transform.position = spawnPoint.position;
+        spriteRenderer.color = Color.gray;
+    }
+
+    public ColorData DrainColor()
+    {
+        ColorData tempColor = currentColor;
+        ClearColor();
+        return tempColor;
+    }
+
+
+    #endregion
+
+    #region Helper Methods
+
+    private bool CanTransfer()
+    {
+        return (Time.time - lastTransferTime >= transferCooldown);
+    }
+
+    private void RecordTransfer()
+    {
+        lastTransferTime = Time.time;
     }
 
     #endregion

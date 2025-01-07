@@ -2,22 +2,7 @@ using UnityEngine;
 
 public class ColorManager : MonoBehaviour
 {
-    // public static ColorManager Instance { get; private set; }
-
     public ColorDatabase colorDatabase;
-
-    // private void Awake()
-    // {
-    //     if (Instance == null)
-    //     {
-    //         Instance = this;
-    //     }
-    //     else
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
-
 
     #region Private methods
 
@@ -102,6 +87,22 @@ public class ColorManager : MonoBehaviour
         return null;
     }
 
+
+    public ColorData MixColors(int[] bwryb, int[] bwryb2)
+    {
+        int[] newBwryb = new int[5];
+        for (int i = 0; i < 5; i++)
+        {
+            newBwryb[i] = bwryb[i] + bwryb2[i];
+        }
+
+        ColorData returnColor = GetColorExact(newBwryb);
+        if (returnColor == null)
+        {
+            returnColor = GetColorNearest(newBwryb);
+        }
+        return returnColor;
+    }
 
     #endregion
 }

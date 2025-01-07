@@ -1,78 +1,46 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ContainerController : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI colorNameText;
     [SerializeField] private ColorManager colorManager;
 
+    private TextMeshProUGUI colorNameText;
+    private Image containerPanel;
     private ColorData currentColor = null;
     private int[] bwryb = new int[5];
 
     #region Private Methods
 
-    private ColorData AddColor(ColorData newColor)
+    private void Awake()
     {
-        int[] bwrybValue = newColor.bwryb;
-
-        for (int i = 0; i < 5; i++)
-        {
-            bwryb[i] += bwrybValue[i];
-        }
-
-        ColorData returnColor = colorManager.GetColorExact(bwryb);
-        if (returnColor == null)
-        {
-            returnColor = colorManager.GetColorNearest(bwryb);
-        }
-
-        if (returnColor.colorName == UIManager.Instance.GetTargetColor().colorName)
-        {
-            GameManager.Instance.LevelComplete();
-            bwryb = new int[5];
-        }
-
-        return returnColor;
-    }
-
-    private void UpdatePanel(ColorData newColor)
-    {
-        UIManager.Instance.UpdatePanelColor(newColor);
-        string colorName = currentColor == null ? "None" : newColor.colorName;
-        UIManager.Instance.UpdatePanelText(colorName);
-    }
-
-    private void ClearPanel()
-    {
-        UIManager.Instance.UpdatePanelColor(colorManager.GetColorByName("Gray"));
-        UIManager.Instance.UpdatePanelText("None");
+        colorNameText = GetComponentInChildren<TextMeshProUGUI>();
+        containerPanel = GetComponent<Image>();
     }
 
     #endregion
 
-    #region Public Methods
+    #region Color Container Methods
 
-    public void ReceiveColor(ColorData newColor)
+    public void AddMixingColor(ColorData newColor)
     {
-        ColorData color = AddColor(newColor);
-        currentColor = color;
-        UpdatePanel(currentColor);
-    }
-
-    public ColorData ReturnColor()
-    {
-        ClearPanel();
-        ColorData tempColor = currentColor;
-        currentColor = null;
-        bwryb = new int[5];
-        return tempColor;
+        currentColor = colorManager.MixColors(bwryb, newColor.bwryb);
+        containerPanel.color = currentColor.colorRGB;
+        colorNameText.text = currentColor.colorName;
     }
 
     public void ResetContainer()
     {
-        ClearPanel();
         currentColor = null;
         bwryb = new int[5];
+        containerPanel.color = Color.gray;
+        colorNameText.text = "None";
+    }
+
+    public ColorData GetCurrentColor()
+    {
+        return currentColor;
     }
 
     #endregion

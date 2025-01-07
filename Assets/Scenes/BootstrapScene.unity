@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManagerPrefab: {fileID: 1032593788443999826, guid: 2bc35d974affe9b45a3ea3d8995fe95f, type: 3}
   audioManagerPrefab: {fileID: 2499837691744663430, guid: 5f9dbe29ee450e8449d2e1d765161679, type: 3}
-  sceneSwitchManager: {fileID: 4438529706381639298, guid: f588f835edb09904f9a8a7165c4a8236, type: 3}
+  eventsManagerPrefab: {fileID: 5505700364662186833, guid: 508d0eaabd255dc40b97410de7ec1547, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
