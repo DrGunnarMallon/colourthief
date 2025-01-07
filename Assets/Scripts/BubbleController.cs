@@ -20,7 +20,6 @@ public class BubbleController : MonoBehaviour
     [SerializeField] private GameObject attractionBeaconPrefab;
 
     private ColorData currentColor;
-    private bool hasColor = true;
     private bool isTractored = false;
     private bool isAttachedToPlayer = false;
     private Transform tractorTarget;
@@ -89,8 +88,6 @@ public class BubbleController : MonoBehaviour
 
     public bool TryTractor()
     {
-        if (!hasColor || isTractored || isAttachedToPlayer) return false;
-
         float distanceToPlayer = Vector2.Distance(
             playerController.transform.position,
             transform.position
@@ -121,8 +118,6 @@ public class BubbleController : MonoBehaviour
         TractorBeam.Instance.SetTargetObject(transform);
         TractorBeam.Instance.Activate();
 
-        // playerController.SetTrackedBubble(this);
-
         return true;
     }
 
@@ -141,31 +136,7 @@ public class BubbleController : MonoBehaviour
         }
     }
 
-
     private void AttachToPlayer()
-    {
-        isAttachedToPlayer = true;
-        transform.SetParent(tractorTarget);
-        transform.localPosition = Vector3.zero;
-        transform.localScale = Vector3.one;
-        label.enabled = false;
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Container") && isTractored && hasColor)
-        {
-            ContainerController container = other.GetComponent<ContainerController>();
-            if (container != null)
-            {
-                // container.ReceiveColor(currentColor);
-                StartCoroutine(PlayDestroyAnimation());
-            }
-        }
-    }
-
-    private IEnumerator PlayDestroyAnimation()
     {
         if (destroyParticleSystem != null)
         {
@@ -178,43 +149,21 @@ public class BubbleController : MonoBehaviour
         }
 
         AudioManager.Instance.PlaySound(AudioManager.AudioType.DrainPaint);
+        EventsManager.Instance.TriggerColorCaptured(currentColor);
 
-        yield return new WaitForSeconds(0.3f);
+        isAttachedToPlayer = true;
+        label.enabled = false;
+
         Destroy(gameObject);
     }
 
     #region Public Methods
-
-    public bool HasColor() => hasColor;
 
     public void SetBubbleColor(ColorData newColor)
     {
         currentColor = newColor;
         spriteRenderer.color = currentColor.colorRGB;
         label.text = currentColor.colorName;
-        hasColor = true;
-    }
-
-    public void Release()
-    {
-        if (!isTractored && !isAttachedToPlayer) return;
-        transform.SetParent(null);
-
-        rb.bodyType = RigidbodyType2D.Dynamic;
-
-        Start();
-
-        transform.rotation = Quaternion.identity;
-
-        Collider2D playerCollider = playerController.GetComponent<Collider2D>();
-        if (playerCollider)
-        {
-            Physics2D.IgnoreCollision(bubbleCollider, playerCollider, false);
-        }
-
-        isTractored = false;
-        isAttachedToPlayer = false;
-        label.enabled = true;
     }
 
     #endregion

@@ -42,30 +42,25 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.Instance.OnScoreChanged += UpdateScoreText;
-        EventsManager.Instance.OnTargetColorChanged += UpdateTargetColor;
-        EventsManager.Instance.OnMixingColorChanged += UpdateMixingContainerColor;
+        EventsManager.Instance.OnTargetChanged += UpdateTargetColor;
         EventsManager.Instance.OnLevelCompleted += LevelCompleted;
-
-        EventsManager.Instance.OnResetGame += ResetAll;
+        EventsManager.Instance.OnNewLevel += NewLevel;
     }
 
     private void OnDisable()
     {
         EventsManager.Instance.OnScoreChanged -= UpdateScoreText;
-        EventsManager.Instance.OnTargetColorChanged -= UpdateTargetColor;
-        EventsManager.Instance.OnMixingColorChanged -= UpdateMixingContainerColor;
+        EventsManager.Instance.OnTargetChanged -= UpdateTargetColor;
         EventsManager.Instance.OnLevelCompleted -= LevelCompleted;
-
-        EventsManager.Instance.OnResetGame -= ResetAll;
+        EventsManager.Instance.OnNewLevel -= NewLevel;
     }
 
     #endregion
 
     #region Public Methods
 
-    public void ResetAll()
+    public void NewLevel()
     {
-        ResetTarget();
         ResetMixingContainer();
         HideLevelCompleteText();
     }
@@ -77,12 +72,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTargetColor(ColorData color)
     {
+        Debug.Log("UIMANAGER: Updating Target Color");
         targetController.SetTargetColor(color);
-    }
-
-    public void UpdateMixingContainerColor(ColorData data)
-    {
-        mixingController.AddMixingColor(data);
     }
 
     public void ShowLevelCompleteText()

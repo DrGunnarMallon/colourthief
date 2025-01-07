@@ -8,9 +8,9 @@ public class EventsManager : MonoBehaviour
     #region Events
 
     public event Action<int> OnScoreChanged;
+    public event Action OnResetScore;
     public event Action<int> OnIncreaseScore;
 
-    public event Action OnResetGame;
     public event Action OnRestartLevel;
     public event Action OnNewLevel;
     public event Action OnNextLevel;
@@ -21,8 +21,11 @@ public class EventsManager : MonoBehaviour
 
     #region UI Events
 
-    public event Action<ColorData> OnTargetColorChanged;
+    public event Action<ColorData> OnTargetChanged;
     public event Action<ColorData> OnMixingColorChanged;
+
+    public event Action<ColorData> OnColorCaptured;
+    public event Action<Vector3, ColorData> OnCreateBubble;
 
     #endregion
 
@@ -49,11 +52,11 @@ public class EventsManager : MonoBehaviour
     #region Game Management Event Triggers
 
     public void TriggerRestartLevel() { OnRestartLevel?.Invoke(); }
-    public void TriggerResetGame() { OnResetGame?.Invoke(); }
     public void TriggerNewLevel() { OnNewLevel?.Invoke(); }
     public void TriggerNextLevel() { OnNextLevel?.Invoke(); }
     public void TriggerReturnToMenu() { OnReturnToMenu?.Invoke(); }
     public void TriggerLevelCompleted() { OnLevelCompleted?.Invoke(); }
+    public void TriggerResetScore() { OnResetScore?.Invoke(); }
 
     #endregion
 
@@ -65,8 +68,11 @@ public class EventsManager : MonoBehaviour
 
     #region UI Event Triggers
 
-    public void TriggerTargetColorChanged(ColorData data) { OnTargetColorChanged?.Invoke(data); }
+    public void TriggerTargetChanged(ColorData data) { OnTargetChanged?.Invoke(data); }
     public void TriggerMixingColorChanged(ColorData data) { OnMixingColorChanged?.Invoke(data); }
+
+    public void TriggerColorCaptured(ColorData data) { OnColorCaptured?.Invoke(data); }
+    public void TriggerCreateBubble(Vector3 position, ColorData colorData) { OnCreateBubble?.Invoke(position, colorData); }
 
     #endregion
 

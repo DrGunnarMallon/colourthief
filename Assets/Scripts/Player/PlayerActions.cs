@@ -1,10 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class PlayerActions : MonoBehaviour
 {
     [SerializeField] private LayerMask bubbleLayerMask;
+    private PlayerController playerController;
+
+    private void Awake()
+    {
+        playerController = GetComponent<PlayerController>();
+    }
 
     private void Update()
     {
@@ -14,13 +19,23 @@ public class PlayerActions : MonoBehaviour
 
             Collider2D hitCollider = Physics2D.OverlapPoint(mousePos, bubbleLayerMask);
 
-            if (hitCollider == null) return;
+            if (hitCollider == null)
+            {
+                if (playerController.HasColor())
+                {
+                    EventsManager.Instance.TriggerCreateBubble(transform.position, playerController.DrainColor());
+                }
+                return;
+            }
 
             BubbleController bubble = hitCollider.GetComponent<BubbleController>();
 
             if (bubble == null) return;
 
-            bool success = bubble.TryTractor();
+            if (!playerController.HasColor())
+            {
+                bool success = bubble.TryTractor();
+            }
         }
     }
 }

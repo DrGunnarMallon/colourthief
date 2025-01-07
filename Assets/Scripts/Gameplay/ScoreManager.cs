@@ -6,7 +6,7 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.Instance.OnResetGame += ResetScore;
+        EventsManager.Instance.OnResetScore += ResetScore;
         EventsManager.Instance.OnNewLevel += ResetScore;
         EventsManager.Instance.OnRestartLevel += ResetScore;
         EventsManager.Instance.OnReturnToMenu += ResetScore;
@@ -16,7 +16,7 @@ public class ScoreManager : MonoBehaviour
 
     private void OnDisable()
     {
-        EventsManager.Instance.OnResetGame -= ResetScore;
+        EventsManager.Instance.OnResetScore -= ResetScore;
         EventsManager.Instance.OnNewLevel -= ResetScore;
         EventsManager.Instance.OnRestartLevel -= ResetScore;
         EventsManager.Instance.OnReturnToMenu -= ResetScore;
@@ -29,12 +29,6 @@ public class ScoreManager : MonoBehaviour
     private void IncreaseScore(int amount = 1)
     {
         score += amount;
-        EventsManager.Instance.TriggerScoreChanged(score);
-    }
-
-    private void DecreaseScore(int amount = 1)
-    {
-        score -= amount;
         EventsManager.Instance.TriggerScoreChanged(score);
     }
 

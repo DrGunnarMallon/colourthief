@@ -6,42 +6,53 @@ public class ContainerController : MonoBehaviour
 {
     [SerializeField] private ColorManager colorManager;
 
-    private TextMeshProUGUI colorNameText;
-    private Image containerPanel;
     private ColorData currentColor = null;
     private int[] bwryb = new int[5];
 
-    #region Private Methods
+    private TextMeshProUGUI colorNameText;
+    private Image targetPanel;
 
     private void Awake()
     {
         colorNameText = GetComponentInChildren<TextMeshProUGUI>();
-        containerPanel = GetComponent<Image>();
+        targetPanel = GetComponent<Image>();
     }
-
-    #endregion
 
     #region Color Container Methods
 
     public void AddMixingColor(ColorData newColor)
     {
+        if (newColor == null) return;
+
         currentColor = colorManager.MixColors(bwryb, newColor.bwryb);
-        containerPanel.color = currentColor.colorRGB;
+        for (int i = 0; i < 5; i++)
+        {
+            bwryb[i] += newColor.bwryb[i];
+        }
+        targetPanel.color = currentColor.colorRGB;
         colorNameText.text = currentColor.colorName;
+
+        EventsManager.Instance.TriggerMixingColorChanged(currentColor);
     }
 
     public void ResetContainer()
     {
         currentColor = null;
         bwryb = new int[5];
-        containerPanel.color = Color.gray;
+        targetPanel.color = Color.gray;
         colorNameText.text = "None";
     }
 
-    public ColorData GetCurrentColor()
-    {
-        return currentColor;
-    }
+    public ColorData GetCurrentColor() => currentColor;
 
     #endregion
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            ColorData newColor = other.GetComponent<PlayerController>().DrainColor();
+            AddMixingColor(newColor);
+        }
+    }
 }

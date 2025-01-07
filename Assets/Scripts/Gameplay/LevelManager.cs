@@ -19,28 +19,37 @@ public class LevelManager : MonoBehaviour
     private float bubbleRadius = 0.5f;
     private int totalBubbles = 10;
 
+    private ColorData targetColor;
 
     #region Events
 
     private void OnEnable()
     {
-        EventsManager.Instance.OnResetGame += ClearLevel;
-        EventsManager.Instance.OnNewLevel += GenerateLevel;
+        EventsManager.Instance.OnNewLevel += NewLevel;
+        EventsManager.Instance.OnCreateBubble += CreateBubble;
+        EventsManager.Instance.OnMixingColorChanged += CheckColorMatch;
     }
 
     private void OnDisable()
     {
-        EventsManager.Instance.OnResetGame -= ClearLevel;
-        EventsManager.Instance.OnNewLevel -= GenerateLevel;
+        EventsManager.Instance.OnNewLevel -= NewLevel;
+        EventsManager.Instance.OnCreateBubble -= CreateBubble;
+        EventsManager.Instance.OnMixingColorChanged -= CheckColorMatch;
     }
 
     #endregion
 
     #region Level Generation
 
+    public void NewLevel()
+    {
+        EventsManager.Instance.TriggerResetScore();
+        GenerateLevel();
+    }
+
     public void GenerateLevel()
     {
-        Debug.Log("LEVELMANAGER: GenerateLevel called");
+        Debug.Log("Generating Level");
 
         ClearLevel();
 
@@ -72,7 +81,10 @@ public class LevelManager : MonoBehaviour
             bubbleController.SetBubbleColor(bubbleInfo);
         }
 
-        EventsManager.Instance.TriggerTargetColorChanged(selectedColorData);
+        targetColor = selectedColorData;
+
+        Debug.Log("LEVELMANAGER: Triggering Target Change Event");
+        EventsManager.Instance.TriggerTargetChanged(selectedColorData);
     }
 
     private List<ColorData> makeBubbles(string color, int count)
@@ -132,7 +144,6 @@ public class LevelManager : MonoBehaviour
         exisitingPositions.Clear();
     }
 
-
     public IEnumerator LevelComplete()
     {
         EventsManager.Instance.TriggerIncreaseScore(1);
@@ -141,6 +152,23 @@ public class LevelManager : MonoBehaviour
         UIManager.Instance.HideLevelCompleteText();
         ClearLevel();
         GenerateLevel();
+    }
+
+    private void CreateBubble(Vector3 position, ColorData color)
+    {
+        GameObject newBubble = Instantiate(bubblePrefab, position, Quaternion.identity);
+        spawnedBubbles.Add(newBubble);
+
+        BubbleController bubbleController = newBubble.GetComponent<BubbleController>();
+        bubbleController.SetBubbleColor(color);
+    }
+
+    public void CheckColorMatch(ColorData color)
+    {
+        if (color == targetColor)
+        {
+            GameManager.Instance.LevelComplete();
+        }
     }
 
 }

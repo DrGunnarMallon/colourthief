@@ -25,15 +25,15 @@ public class GameManager : MonoBehaviour
 
     #region Game Management Methods
 
-    public void ResetGame()
+    public void LoadNewLevel()
     {
-        EventsManager.Instance.TriggerResetGame();
+        Debug.Log("New Level Loaded");
         EventsManager.Instance.TriggerNewLevel();
     }
 
     public void LevelComplete()
     {
-        EventsManager.Instance.TriggerLevelCompleted();
+        Debug.Log("Level Complete");
     }
 
     public void LoadGame()
@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
         EventsManager.Instance.TriggerReturnToMenu();
         SwitchScene("MainMenu");
     }
+
+    public void CheckColorMatch(ColorData color) { }
 
     #endregion
 
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        ResetGame();
+        LoadNewLevel();
     }
 
     #endregion

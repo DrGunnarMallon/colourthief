@@ -4,7 +4,7 @@ public class GameUIButtons : MonoBehaviour
 {
     public void OnNewLevelButtonPressed()
     {
-        GameManager.Instance.ResetGame();
+        GameManager.Instance.LoadNewLevel();
     }
 
     public void OnReturnToMenuButtonPressed()

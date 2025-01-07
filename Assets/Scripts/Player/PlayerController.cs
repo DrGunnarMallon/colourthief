@@ -25,13 +25,15 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.Instance.OnLevelCompleted += ResetPlayer;
-        EventsManager.Instance.OnResetGame += ResetPlayer;
+        EventsManager.Instance.OnNewLevel += ResetPlayer;
+        EventsManager.Instance.OnColorCaptured += SetColor;
     }
 
     private void OnDisable()
     {
         EventsManager.Instance.OnLevelCompleted -= ResetPlayer;
-        EventsManager.Instance.OnResetGame -= ResetPlayer;
+        EventsManager.Instance.OnNewLevel -= ResetPlayer;
+        EventsManager.Instance.OnColorCaptured -= SetColor;
     }
 
     #endregion
@@ -80,7 +82,6 @@ public class PlayerController : MonoBehaviour
 
     public bool CanTransfer() => (Time.time - lastTransferTime >= transferCooldown);
     public void RecordTransfer() => lastTransferTime = Time.time;
-
 
     #endregion
 }
