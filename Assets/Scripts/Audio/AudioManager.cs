@@ -3,7 +3,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
-    public enum AudioType { DrainPaint, MixPaint, Sonar, Tractor, Release, LevelUp }
+    public enum AudioType { DrainPaint, MixPaint, Sonar, Tractor, Release, LevelUp, LevelFailed }
 
     private AudioSource musicSource;
     [SerializeField] private AudioClip drainPaintClip = null;
@@ -23,6 +23,9 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioClip releaseClip = null;
     [SerializeField] private float releaseVolume = 0.5f;
+
+    [SerializeField] private AudioClip levelFailedClip = null;
+    [SerializeField] private float levelFailedVolume = 0.5f;
 
     private void Awake()
     {
@@ -68,6 +71,10 @@ public class AudioManager : MonoBehaviour
             case AudioType.LevelUp:
                 clip = levelUpClip;
                 volume = levelUpVolume;
+                break;
+            case AudioType.LevelFailed:
+                clip = levelFailedClip;
+                volume = levelFailedVolume;
                 break;
         }
 

@@ -32,6 +32,7 @@ public class ContainerController : MonoBehaviour
         targetPanel.color = currentColor.colorRGB;
         colorNameText.text = currentColor.colorName;
 
+        EventsManager.Instance.TriggerAddColorToHistory(newColor);
         EventsManager.Instance.TriggerMixingColorChanged(currentColor);
     }
 

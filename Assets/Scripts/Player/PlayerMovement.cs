@@ -21,12 +21,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.Instance.OnFreezePlayer += FreezePlayer;
+        EventsManager.Instance.OnUnfreezePlayer += UnfreezePlayer;
         EventsManager.Instance.OnNextLevel += UnfreezePlayer;
     }
 
     private void OnDisable()
     {
         EventsManager.Instance.OnFreezePlayer -= FreezePlayer;
+        EventsManager.Instance.OnUnfreezePlayer -= UnfreezePlayer;
         EventsManager.Instance.OnNextLevel -= UnfreezePlayer;
     }
 

@@ -19,6 +19,8 @@ public class LevelManager : MonoBehaviour
     private float bubbleRadius = 0.5f;
     private int totalBubbles = 10;
 
+    private bool historyFull = false;
+
     private ColorData targetColor;
 
     #region Events
@@ -30,6 +32,7 @@ public class LevelManager : MonoBehaviour
         EventsManager.Instance.OnMixingColorChanged += CheckColorMatch;
         EventsManager.Instance.OnLevelCompleted += LevelCompleteWrapper;
         EventsManager.Instance.OnNextLevel += GenerateLevel;
+        EventsManager.Instance.OnColorHistoryFull += () => historyFull = true;
     }
 
     private void OnDisable()
@@ -39,6 +42,7 @@ public class LevelManager : MonoBehaviour
         EventsManager.Instance.OnMixingColorChanged -= CheckColorMatch;
         EventsManager.Instance.OnLevelCompleted -= LevelCompleteWrapper;
         EventsManager.Instance.OnNextLevel -= GenerateLevel;
+        EventsManager.Instance.OnColorHistoryFull -= () => historyFull = true;
     }
 
     #endregion
@@ -53,8 +57,6 @@ public class LevelManager : MonoBehaviour
 
     public void GenerateLevel()
     {
-        Debug.Log("Generating Level");
-
         ClearLevel();
 
         if (colorDataList == null || colorDataList.colors.Length == 0) return;
@@ -87,7 +89,6 @@ public class LevelManager : MonoBehaviour
 
         targetColor = selectedColorData;
 
-        Debug.Log("LEVELMANAGER: Triggering Target Change Event");
         EventsManager.Instance.TriggerTargetChanged(selectedColorData);
     }
 
@@ -146,6 +147,7 @@ public class LevelManager : MonoBehaviour
 
         spawnedBubbles.Clear();
         exisitingPositions.Clear();
+        historyFull = false;
     }
 
     public void LevelCompleteWrapper()
@@ -163,7 +165,6 @@ public class LevelManager : MonoBehaviour
         UIManager.Instance.HideLevelCompleteText();
         ClearLevel();
         EventsManager.Instance.TriggerNextLevel();
-        // GenerateLevel();
     }
 
     private void CreateBubble(Vector3 position, ColorData color)
@@ -182,6 +183,25 @@ public class LevelManager : MonoBehaviour
         {
             GameManager.Instance.LevelComplete();
         }
+        else
+        {
+            if (historyFull)
+            {
+                StartCoroutine(LevelFailed());
+            }
+        }
+    }
+
+    public IEnumerator LevelFailed()
+    {
+        EventsManager.Instance.TriggerFreezePlayer();
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.LevelFailed);
+        UIManager.Instance.ShowLevelFailedText();
+        yield return new WaitForSeconds(2f);
+        UIManager.Instance.HideLevelFailedText();
+        ClearLevel();
+        EventsManager.Instance.TriggerNewLevel();
+        EventsManager.Instance.TriggerUnfreezePlayer();
     }
 
 }

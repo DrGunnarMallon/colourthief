@@ -27,15 +27,12 @@ public class GameManager : MonoBehaviour
 
     public void LoadNewLevel()
     {
-        Debug.Log("New Level Loaded");
         EventsManager.Instance.TriggerNewLevel();
     }
 
     public void LevelComplete()
     {
-        Debug.Log("Level Complete");
         EventsManager.Instance.TriggerLevelCompleted();
-        // Trigger Show Level Complete UI
     }
 
     public void LoadGame()

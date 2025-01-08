@@ -9,11 +9,13 @@ public class UIManager : MonoBehaviour
 
     [Header("Level Complete Text")]
     [SerializeField] private TextMeshPro levelCompleteText;
+    [SerializeField] private TextMeshPro levelFailedText;
 
     [Header("Panel Controllers")]
     [SerializeField] private ContainerController mixingController;
     [SerializeField] private TargetController targetController;
     [SerializeField] private StreakTextController streakController;
+    [SerializeField] private ColorHistoryManager colorHistoryController;
 
     #region Class Setup Methods
 
@@ -33,7 +35,7 @@ public class UIManager : MonoBehaviour
     {
         EventsManager.Instance.OnScoreChanged += UpdateScoreText;
         EventsManager.Instance.OnTargetChanged += UpdateTargetColor;
-        EventsManager.Instance.OnLevelCompleted += LevelCompleted;
+        // EventsManager.Instance.OnLevelCompleted += LevelCompleted;
         EventsManager.Instance.OnNewLevel += NewLevel;
         EventsManager.Instance.OnNextLevel += ResetMixingContainer;
     }
@@ -42,7 +44,7 @@ public class UIManager : MonoBehaviour
     {
         EventsManager.Instance.OnScoreChanged -= UpdateScoreText;
         EventsManager.Instance.OnTargetChanged -= UpdateTargetColor;
-        EventsManager.Instance.OnLevelCompleted -= LevelCompleted;
+        // EventsManager.Instance.OnLevelCompleted -= LevelCompleted;
         EventsManager.Instance.OnNewLevel -= NewLevel;
         EventsManager.Instance.OnNextLevel -= ResetMixingContainer;
     }
@@ -55,6 +57,7 @@ public class UIManager : MonoBehaviour
     {
         ResetMixingContainer();
         HideLevelCompleteText();
+        HideLevelFailedText();
     }
 
     public void UpdateScoreText(int score)
@@ -65,6 +68,7 @@ public class UIManager : MonoBehaviour
     public void UpdateTargetColor(ColorData color)
     {
         targetController.SetTargetColor(color);
+        colorHistoryController.CreateCircles(color.NumberOfColors());
     }
 
     public void ShowLevelCompleteText()
@@ -77,6 +81,16 @@ public class UIManager : MonoBehaviour
         levelCompleteText.gameObject.SetActive(false);
     }
 
+    public void ShowLevelFailedText()
+    {
+        levelFailedText.gameObject.SetActive(true);
+    }
+
+    public void HideLevelFailedText()
+    {
+        levelFailedText.gameObject.SetActive(false);
+    }
+
     public void ResetTarget()
     {
         targetController.ResetTarget();
@@ -85,13 +99,6 @@ public class UIManager : MonoBehaviour
     public void ResetMixingContainer()
     {
         mixingController.ResetContainer();
-    }
-
-
-    private void LevelCompleted()
-    {
-        // ResetTarget();
-        // ResetMixingContainer();
     }
 
     #endregion

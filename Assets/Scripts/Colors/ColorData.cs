@@ -10,6 +10,16 @@ public class ColorData : IEquatable<ColorData>
 
     #region Equality methods
 
+    public int NumberOfColors()
+    {
+        int count = 0;
+        foreach (var value in bwryb)
+        {
+            count += value;
+        }
+        return count;
+    }
+
     public bool Equals(ColorData other)
     {
         if (other == null)
