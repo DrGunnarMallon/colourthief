@@ -1126,7 +1126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4528302, g: 0, b: 0.44124684, a: 0.5019608}
+  m_Color: {r: 0.4528302, g: 0, b: 0.44124684, a: 0.4}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1967,11 +1967,11 @@ MonoBehaviour:
     Left-click on a coloured bubble to capture colour
 
     > Release Colour: Left-click
-    on an empty are to release colour
+    on an empty area to release colour
 
 
     1. Locate Colour: Move your player within
-    range of the coloured bubbles scattered througthout the playarea.
+    range of the coloured bubbles scattered throughout the play area.
 
     2. Capture
     and Transport: Capture colour by left-clicking and move your player to the mixing

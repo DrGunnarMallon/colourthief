@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour
     private int totalBubbles = 10;
 
     private bool historyFull = false;
+    private float levelFailWaitTime = 2f;
 
     private ColorData targetColor;
 
@@ -198,7 +199,7 @@ public class LevelManager : MonoBehaviour
         EventsManager.Instance.TriggerShowSolution(GetSolution());
         AudioManager.Instance.PlaySound(AudioManager.AudioType.LevelFailed);
         UIManager.Instance.ShowLevelFailedText();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(levelFailWaitTime);
         UIManager.Instance.HideLevelFailedText();
         ClearLevel();
         EventsManager.Instance.TriggerNewLevel();

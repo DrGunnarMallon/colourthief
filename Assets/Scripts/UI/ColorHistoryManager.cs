@@ -1,18 +1,19 @@
 using UnityEngine;
-// using System;
 using System.Collections.Generic;
+using TMPro;
 
 public class ColorHistoryManager : MonoBehaviour
 {
-    // [SerializeField] private int manNumberOfColors;
     [SerializeField] private ColorHistoryCircle colorHistoryCirclePrefab;
     [SerializeField] private float spacing = 0.5f;
+    [SerializeField] private TextMeshPro correctAnswerText;
 
     private int maxNumberOfColors;
     private int numberOfColors = 0;
     private ColorHistoryCircle[] colorHistory;
     private ColorHistoryCircle[] solutionCircles;
     private Vector3[] circlePositions;
+
 
     private void OnEnable()
     {
@@ -56,6 +57,7 @@ public class ColorHistoryManager : MonoBehaviour
                 }
             }
         }
+        correctAnswerText.gameObject.SetActive(false);
     }
 
     public void CreateCircles(int numberOfCircles)
@@ -91,10 +93,11 @@ public class ColorHistoryManager : MonoBehaviour
     {
         Vector3 startPosition = transform.position;
         solutionCircles = new ColorHistoryCircle[colors.Count];
+        correctAnswerText.gameObject.SetActive(true);
 
         for (int i = 0; i < colors.Count; i++)
         {
-            Vector3 circlePosition = startPosition + new Vector3(i * spacing, 0.5f, 0);
+            Vector3 circlePosition = startPosition + new Vector3(i * spacing, 0.85f, 0);
 
             ColorHistoryCircle newCircle = Instantiate(
                 colorHistoryCirclePrefab,
@@ -106,6 +109,8 @@ public class ColorHistoryManager : MonoBehaviour
 
             solutionCircles[i] = newCircle;
         }
+
+
     }
 
     private void AddColor(ColorData data)
