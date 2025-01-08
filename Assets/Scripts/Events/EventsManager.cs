@@ -26,6 +26,7 @@ public class EventsManager : MonoBehaviour
     public event Action<ColorData> OnAddColorToHistory;
     public event Action OnColorHistoryFull;
     public event Action<List<ColorData>> OnShowSolution;
+    public event Action OnFirstLaunch;
 
     #endregion
 
@@ -63,6 +64,7 @@ public class EventsManager : MonoBehaviour
     public void TriggerColorCaptured(ColorData data) { OnColorCaptured?.Invoke(data); }
     public void TriggerCreateBubble(Vector3 position, ColorData colorData) { OnCreateBubble?.Invoke(position, colorData); }
     public void TriggerShowSolution(List<ColorData> solution) { OnShowSolution?.Invoke(solution); }
+    public void TriggerFirstLaunch() { OnFirstLaunch?.Invoke(); }
 
     #endregion
 

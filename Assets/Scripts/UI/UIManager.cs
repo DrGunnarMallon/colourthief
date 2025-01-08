@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     [Header("Level Complete Text")]
     [SerializeField] private TextMeshPro levelCompleteText;
     [SerializeField] private TextMeshPro levelFailedText;
+    [SerializeField] private GameObject firstLaunchPanel;
 
     [Header("Panel Controllers")]
     [SerializeField] private ContainerController mixingController;
@@ -27,6 +28,11 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        HideFirstLaunchText();
     }
 
     private void OnEnable()
@@ -97,6 +103,18 @@ public class UIManager : MonoBehaviour
     public void ResetMixingContainer()
     {
         mixingController.ResetContainer();
+    }
+
+    public void ShowFirstLaunchText()
+    {
+        Debug.Log("Show First Launch");
+        firstLaunchPanel.SetActive(true);
+    }
+
+    public void HideFirstLaunchText()
+    {
+        Debug.Log("Show First Launch");
+        firstLaunchPanel.SetActive(false);
     }
 
     #endregion

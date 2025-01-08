@@ -142,10 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9eac636c954b74c921dc119927b66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drainPaintClip: {fileID: 8300000, guid: e2d6e65d5534ae14e831d18ba73277be, type: 3}
+  drainPaintClip: {fileID: 8300000, guid: 7d28b77172433e647ae89ff4c012c8ac, type: 3}
   drainPaintVolume: 0.5
-  mixPaintClip: {fileID: 8300000, guid: 45dca073fb36d8548ae750283e582c07, type: 3}
-  mixPaintVolume: 0.5
+  mixPaintClip: {fileID: 8300000, guid: e2d6e65d5534ae14e831d18ba73277be, type: 3}
+  mixPaintVolume: 0.3
   sonarClip: {fileID: 8300000, guid: 0aba8bbaa227b1647824125f3b322ccf, type: 3}
   sonarVolume: 0.5
   tractorClip: {fileID: 8300000, guid: f90c3bedb1f0ec048a9590d43942a3bd, type: 3}

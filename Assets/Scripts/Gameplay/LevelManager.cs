@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour
     private float levelFailWaitTime = 2f;
 
     private ColorData targetColor;
+    private bool firstLaunch = false;
 
     #region Events
 
@@ -34,6 +35,7 @@ public class LevelManager : MonoBehaviour
         EventsManager.Instance.OnLevelCompleted += LevelCompleteWrapper;
         EventsManager.Instance.OnNextLevel += GenerateLevel;
         EventsManager.Instance.OnColorHistoryFull += () => historyFull = true;
+        EventsManager.Instance.OnFirstLaunch += () => firstLaunch = true;
     }
 
     private void OnDisable()
@@ -44,6 +46,7 @@ public class LevelManager : MonoBehaviour
         EventsManager.Instance.OnLevelCompleted -= LevelCompleteWrapper;
         EventsManager.Instance.OnNextLevel -= GenerateLevel;
         EventsManager.Instance.OnColorHistoryFull -= () => historyFull = true;
+        EventsManager.Instance.OnFirstLaunch -= () => firstLaunch = true;
     }
 
     #endregion
@@ -53,7 +56,16 @@ public class LevelManager : MonoBehaviour
     public void NewLevel()
     {
         EventsManager.Instance.TriggerResetScore();
+        if (firstLaunch) { StartCoroutine(ShowFirstLaunchText()); } else { UIManager.Instance.HideFirstLaunchText(); }
         GenerateLevel();
+    }
+
+    private IEnumerator ShowFirstLaunchText()
+    {
+        UIManager.Instance.ShowFirstLaunchText();
+        yield return new WaitForSeconds(5f);
+        UIManager.Instance.HideFirstLaunchText();
+        firstLaunch = false;
     }
 
     public void GenerateLevel()

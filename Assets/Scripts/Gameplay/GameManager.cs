@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    private bool isFirstLaunch = true;
+
     #region Singleton Pattern
 
     private void Awake()
@@ -27,6 +29,11 @@ public class GameManager : MonoBehaviour
 
     public void LoadNewLevel()
     {
+        if (isFirstLaunch)
+        {
+            EventsManager.Instance.TriggerFirstLaunch();
+            isFirstLaunch = false;
+        }
         EventsManager.Instance.TriggerNewLevel();
     }
 
