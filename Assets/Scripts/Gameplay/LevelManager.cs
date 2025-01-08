@@ -195,6 +195,7 @@ public class LevelManager : MonoBehaviour
     public IEnumerator LevelFailed()
     {
         EventsManager.Instance.TriggerFreezePlayer();
+        EventsManager.Instance.TriggerShowSolution(GetSolution());
         AudioManager.Instance.PlaySound(AudioManager.AudioType.LevelFailed);
         UIManager.Instance.ShowLevelFailedText();
         yield return new WaitForSeconds(2f);
@@ -202,6 +203,34 @@ public class LevelManager : MonoBehaviour
         ClearLevel();
         EventsManager.Instance.TriggerNewLevel();
         EventsManager.Instance.TriggerUnfreezePlayer();
+    }
+
+    private List<ColorData> GetSolution()
+    {
+        List<ColorData> solution = new List<ColorData>();
+
+        for (int i = 0; i < targetColor.bwryb[0]; i++)
+        {
+            solution.Add(colorManager.GetColorByName("Black"));
+        }
+        for (int i = 0; i < targetColor.bwryb[1]; i++)
+        {
+            solution.Add(colorManager.GetColorByName("White"));
+        }
+        for (int i = 0; i < targetColor.bwryb[2]; i++)
+        {
+            solution.Add(colorManager.GetColorByName("Red"));
+        }
+        for (int i = 0; i < targetColor.bwryb[3]; i++)
+        {
+            solution.Add(colorManager.GetColorByName("Yellow"));
+        }
+        for (int i = 0; i < targetColor.bwryb[4]; i++)
+        {
+            solution.Add(colorManager.GetColorByName("Blue"));
+        }
+
+        return solution;
     }
 
 }

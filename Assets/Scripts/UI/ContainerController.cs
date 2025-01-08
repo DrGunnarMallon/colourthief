@@ -1,6 +1,6 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
 
 public class ContainerController : MonoBehaviour
 {
@@ -31,6 +31,8 @@ public class ContainerController : MonoBehaviour
         }
         targetPanel.color = currentColor.colorRGB;
         colorNameText.text = currentColor.colorName;
+
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.MixPaint);
 
         EventsManager.Instance.TriggerAddColorToHistory(newColor);
         EventsManager.Instance.TriggerMixingColorChanged(currentColor);

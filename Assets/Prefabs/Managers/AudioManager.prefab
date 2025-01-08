@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drainPaintClip: {fileID: 8300000, guid: e2d6e65d5534ae14e831d18ba73277be, type: 3}
   drainPaintVolume: 0.5
-  mixPaintClip: {fileID: 0}
+  mixPaintClip: {fileID: 8300000, guid: 45dca073fb36d8548ae750283e582c07, type: 3}
   mixPaintVolume: 0.5
   sonarClip: {fileID: 8300000, guid: 0aba8bbaa227b1647824125f3b322ccf, type: 3}
   sonarVolume: 0.5

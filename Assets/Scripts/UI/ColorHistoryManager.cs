@@ -1,15 +1,17 @@
 using UnityEngine;
-using System;
+// using System;
+using System.Collections.Generic;
 
 public class ColorHistoryManager : MonoBehaviour
 {
-    [SerializeField] private int manNumberOfColors;
+    // [SerializeField] private int manNumberOfColors;
     [SerializeField] private ColorHistoryCircle colorHistoryCirclePrefab;
     [SerializeField] private float spacing = 0.5f;
 
     private int maxNumberOfColors;
     private int numberOfColors = 0;
     private ColorHistoryCircle[] colorHistory;
+    private ColorHistoryCircle[] solutionCircles;
     private Vector3[] circlePositions;
 
     private void OnEnable()
@@ -18,6 +20,7 @@ public class ColorHistoryManager : MonoBehaviour
         {
             EventsManager.Instance.OnAddColorToHistory += AddColor;
             EventsManager.Instance.OnNewLevel += () => { numberOfColors = 0; };
+            EventsManager.Instance.OnShowSolution += ShowSolution;
         }
     }
 
@@ -27,6 +30,7 @@ public class ColorHistoryManager : MonoBehaviour
         {
             EventsManager.Instance.OnAddColorToHistory -= AddColor;
             EventsManager.Instance.OnNewLevel -= () => { numberOfColors = 0; };
+            EventsManager.Instance.OnShowSolution -= ShowSolution;
         }
     }
 
@@ -35,6 +39,16 @@ public class ColorHistoryManager : MonoBehaviour
         if (colorHistory != null)
         {
             foreach (var circle in colorHistory)
+            {
+                if (circle != null)
+                {
+                    Destroy(circle.gameObject);
+                }
+            }
+
+            if (solutionCircles == null) return;
+
+            foreach (var circle in solutionCircles)
             {
                 if (circle != null)
                 {
@@ -70,6 +84,27 @@ public class ColorHistoryManager : MonoBehaviour
 
             // Store the reference for later use
             colorHistory[i] = newCircle;
+        }
+    }
+
+    public void ShowSolution(List<ColorData> colors)
+    {
+        Vector3 startPosition = transform.position;
+        solutionCircles = new ColorHistoryCircle[colors.Count];
+
+        for (int i = 0; i < colors.Count; i++)
+        {
+            Vector3 circlePosition = startPosition + new Vector3(i * spacing, 0.5f, 0);
+
+            ColorHistoryCircle newCircle = Instantiate(
+                colorHistoryCirclePrefab,
+                circlePosition,
+                Quaternion.identity
+            );
+
+            newCircle.SetColor(colors[i]);
+
+            solutionCircles[i] = newCircle;
         }
     }
 

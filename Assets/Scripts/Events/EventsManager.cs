@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class EventsManager : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class EventsManager : MonoBehaviour
     public event Action<Vector3, ColorData> OnCreateBubble;
     public event Action<ColorData> OnAddColorToHistory;
     public event Action OnColorHistoryFull;
+    public event Action<List<ColorData>> OnShowSolution;
 
     #endregion
 
@@ -60,6 +62,7 @@ public class EventsManager : MonoBehaviour
     public void TriggerMixingColorChanged(ColorData data) { OnMixingColorChanged?.Invoke(data); }
     public void TriggerColorCaptured(ColorData data) { OnColorCaptured?.Invoke(data); }
     public void TriggerCreateBubble(Vector3 position, ColorData colorData) { OnCreateBubble?.Invoke(position, colorData); }
+    public void TriggerShowSolution(List<ColorData> solution) { OnShowSolution?.Invoke(solution); }
 
     #endregion
 

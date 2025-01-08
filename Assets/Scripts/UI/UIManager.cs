@@ -1,7 +1,5 @@
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
