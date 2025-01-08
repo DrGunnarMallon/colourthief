@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Rigidbody2D rb;
     private PlayerInput playerInput;
+    private bool isFrozen = false;
 
     private void Awake()
     {
@@ -17,10 +18,34 @@ public class PlayerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
     }
 
+    private void OnEnable()
+    {
+        EventsManager.Instance.OnFreezePlayer += FreezePlayer;
+        EventsManager.Instance.OnNextLevel += UnfreezePlayer;
+    }
+
+    private void OnDisable()
+    {
+        EventsManager.Instance.OnFreezePlayer -= FreezePlayer;
+        EventsManager.Instance.OnNextLevel -= UnfreezePlayer;
+    }
+
     #region Input System Events
+
+    private void FreezePlayer()
+    {
+        isFrozen = true;
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        moveInput = Vector2.zero;
+    }
+
+    private void UnfreezePlayer() => isFrozen = false;
 
     public void OnMove(InputValue value)
     {
+        if (isFrozen) return;
+
         moveInput = value.Get<Vector2>();
     }
 

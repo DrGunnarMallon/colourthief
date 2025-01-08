@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,12 +15,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TargetController targetController;
     [SerializeField] private StreakTextController streakController;
 
-    [Header("Score Text")]
-    [SerializeField] private TextMeshProUGUI scoreText;
-
-    [Header("Color Manager")]
-    [SerializeField] private ColorManager colorManager;
-
     #region Class Setup Methods
 
     private void Awake()
@@ -34,17 +29,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        levelCompleteText.gameObject.SetActive(false);
-    }
-
     private void OnEnable()
     {
         EventsManager.Instance.OnScoreChanged += UpdateScoreText;
         EventsManager.Instance.OnTargetChanged += UpdateTargetColor;
         EventsManager.Instance.OnLevelCompleted += LevelCompleted;
         EventsManager.Instance.OnNewLevel += NewLevel;
+        EventsManager.Instance.OnNextLevel += ResetMixingContainer;
     }
 
     private void OnDisable()
@@ -53,6 +44,7 @@ public class UIManager : MonoBehaviour
         EventsManager.Instance.OnTargetChanged -= UpdateTargetColor;
         EventsManager.Instance.OnLevelCompleted -= LevelCompleted;
         EventsManager.Instance.OnNewLevel -= NewLevel;
+        EventsManager.Instance.OnNextLevel -= ResetMixingContainer;
     }
 
     #endregion
@@ -72,7 +64,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTargetColor(ColorData color)
     {
-        Debug.Log("UIMANAGER: Updating Target Color");
         targetController.SetTargetColor(color);
     }
 
@@ -99,9 +90,8 @@ public class UIManager : MonoBehaviour
 
     private void LevelCompleted()
     {
-        ResetTarget();
-        ResetMixingContainer();
-        HideLevelCompleteText();
+        // ResetTarget();
+        // ResetMixingContainer();
     }
 
     #endregion

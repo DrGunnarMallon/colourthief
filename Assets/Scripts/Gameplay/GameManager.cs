@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     public void LevelComplete()
     {
         Debug.Log("Level Complete");
+        EventsManager.Instance.TriggerLevelCompleted();
+        // Trigger Show Level Complete UI
     }
 
     public void LoadGame()
@@ -51,8 +53,6 @@ public class GameManager : MonoBehaviour
         EventsManager.Instance.TriggerReturnToMenu();
         SwitchScene("MainMenu");
     }
-
-    public void CheckColorMatch(ColorData color) { }
 
     #endregion
 

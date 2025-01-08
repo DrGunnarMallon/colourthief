@@ -16,6 +16,8 @@ public class EventsManager : MonoBehaviour
     public event Action OnNextLevel;
     public event Action OnReturnToMenu;
     public event Action OnLevelCompleted;
+    public event Action OnFreezePlayer;
+    public event Action OnUnfreezePlayer;
 
     #endregion
 
@@ -57,6 +59,8 @@ public class EventsManager : MonoBehaviour
     public void TriggerReturnToMenu() { OnReturnToMenu?.Invoke(); }
     public void TriggerLevelCompleted() { OnLevelCompleted?.Invoke(); }
     public void TriggerResetScore() { OnResetScore?.Invoke(); }
+    public void TriggerFreezePlayer() { OnFreezePlayer?.Invoke(); }
+    public void TriggerUnfreezePlayer() { OnUnfreezePlayer?.Invoke(); }
 
     #endregion
 

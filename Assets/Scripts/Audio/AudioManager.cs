@@ -3,20 +3,23 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
-    public enum AudioType { DrainPaint, FillPaint, Sonar, Tractor, Release }
+    public enum AudioType { DrainPaint, MixPaint, Sonar, Tractor, Release, LevelUp }
 
     private AudioSource musicSource;
     [SerializeField] private AudioClip drainPaintClip = null;
     [SerializeField] private float drainPaintVolume = 0.5f;
 
-    [SerializeField] private AudioClip fillPaintClip = null;
-    [SerializeField] private float fillPaintVolume = 0.5f;
+    [SerializeField] private AudioClip mixPaintClip = null;
+    [SerializeField] private float mixPaintVolume = 0.5f;
 
     [SerializeField] private AudioClip sonarClip = null;
     [SerializeField] private float sonarVolume = 0.5f;
 
     [SerializeField] private AudioClip tractorClip = null;
     [SerializeField] private float tractorVolume = 0.5f;
+
+    [SerializeField] private AudioClip levelUpClip = null;
+    [SerializeField] private float levelUpVolume = 0.5f;
 
     [SerializeField] private AudioClip releaseClip = null;
     [SerializeField] private float releaseVolume = 0.5f;
@@ -46,9 +49,9 @@ public class AudioManager : MonoBehaviour
                 clip = drainPaintClip;
                 volume = drainPaintVolume;
                 break;
-            case AudioType.FillPaint:
-                clip = fillPaintClip;
-                volume = fillPaintVolume;
+            case AudioType.MixPaint:
+                clip = mixPaintClip;
+                volume = mixPaintVolume;
                 break;
             case AudioType.Sonar:
                 clip = sonarClip;
@@ -61,6 +64,10 @@ public class AudioManager : MonoBehaviour
             case AudioType.Release:
                 clip = releaseClip;
                 volume = releaseVolume;
+                break;
+            case AudioType.LevelUp:
+                clip = levelUpClip;
+                volume = levelUpVolume;
                 break;
         }
 

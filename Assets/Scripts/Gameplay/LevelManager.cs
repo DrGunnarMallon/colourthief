@@ -28,6 +28,8 @@ public class LevelManager : MonoBehaviour
         EventsManager.Instance.OnNewLevel += NewLevel;
         EventsManager.Instance.OnCreateBubble += CreateBubble;
         EventsManager.Instance.OnMixingColorChanged += CheckColorMatch;
+        EventsManager.Instance.OnLevelCompleted += LevelCompleteWrapper;
+        EventsManager.Instance.OnNextLevel += GenerateLevel;
     }
 
     private void OnDisable()
@@ -35,6 +37,8 @@ public class LevelManager : MonoBehaviour
         EventsManager.Instance.OnNewLevel -= NewLevel;
         EventsManager.Instance.OnCreateBubble -= CreateBubble;
         EventsManager.Instance.OnMixingColorChanged -= CheckColorMatch;
+        EventsManager.Instance.OnLevelCompleted -= LevelCompleteWrapper;
+        EventsManager.Instance.OnNextLevel -= GenerateLevel;
     }
 
     #endregion
@@ -144,20 +148,29 @@ public class LevelManager : MonoBehaviour
         exisitingPositions.Clear();
     }
 
+    public void LevelCompleteWrapper()
+    {
+        StartCoroutine(LevelComplete());
+    }
+
     public IEnumerator LevelComplete()
     {
+        EventsManager.Instance.TriggerFreezePlayer();
         EventsManager.Instance.TriggerIncreaseScore(1);
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.LevelUp);
         UIManager.Instance.ShowLevelCompleteText();
         yield return new WaitForSeconds(2f);
         UIManager.Instance.HideLevelCompleteText();
         ClearLevel();
-        GenerateLevel();
+        EventsManager.Instance.TriggerNextLevel();
+        // GenerateLevel();
     }
 
     private void CreateBubble(Vector3 position, ColorData color)
     {
         GameObject newBubble = Instantiate(bubblePrefab, position, Quaternion.identity);
         spawnedBubbles.Add(newBubble);
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.Release);
 
         BubbleController bubbleController = newBubble.GetComponent<BubbleController>();
         bubbleController.SetBubbleColor(color);

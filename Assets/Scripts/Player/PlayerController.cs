@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
         EventsManager.Instance.OnLevelCompleted += ResetPlayer;
         EventsManager.Instance.OnNewLevel += ResetPlayer;
         EventsManager.Instance.OnColorCaptured += SetColor;
+        EventsManager.Instance.OnNextLevel += ResetPlayer;
     }
 
     private void OnDisable()
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
         EventsManager.Instance.OnLevelCompleted -= ResetPlayer;
         EventsManager.Instance.OnNewLevel -= ResetPlayer;
         EventsManager.Instance.OnColorCaptured -= SetColor;
+        EventsManager.Instance.OnNextLevel -= ResetPlayer;
     }
 
     #endregion
